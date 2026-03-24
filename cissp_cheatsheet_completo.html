@@ -1,0 +1,2282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CISSP — Cheat Sheet Completo · Mariana BS</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Share+Tech+Mono&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--surface:#111;--card:#161616;--border:#2a2a2a;--accent:#c8a84b;--accent2:#7b61ff;--accent3:#e05252;--accent4:#4bc87a;--text:#d4cfc5;--muted:#6b6660;--heading:#f0ead6;--mono:'Share Tech Mono',monospace;--serif:'Special Elite',cursive;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:13px;line-height:1.6;min-height:100vh;}
+/* HERO */
+.hero{background:var(--surface);border-bottom:2px solid var(--accent);padding:48px 24px 32px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(200,168,75,.03) 28px,rgba(200,168,75,.03) 29px);pointer-events:none;}
+.hero-badge{display:inline-block;border:1px solid var(--accent);color:var(--accent);font-size:11px;letter-spacing:3px;padding:4px 14px;margin-bottom:18px;text-transform:uppercase;}
+.hero h1{font-family:var(--serif);font-size:clamp(2.4rem,6vw,5rem);color:var(--heading);line-height:1.1;margin-bottom:8px;}
+.hero h1 span{color:var(--accent);}
+.hero-sub{font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;}
+.hero-stats{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:24px;}
+.stat{text-align:center;border:1px solid var(--border);padding:12px 20px;background:rgba(200,168,75,.04);}
+.stat-val{font-family:var(--serif);font-size:1.8rem;color:var(--accent);display:block;}
+.stat-label{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+/* DOMAIN BAR */
+.domain-bar{display:flex;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--accent) var(--surface);}
+.domain-pill{flex:0 0 auto;padding:10px 14px;font-size:10px;color:var(--muted);border-right:1px solid var(--border);cursor:pointer;transition:all .2s;text-align:center;letter-spacing:1px;white-space:nowrap;text-decoration:none;}
+.domain-pill:hover{color:var(--accent);background:rgba(200,168,75,.06);}
+.domain-pill .pct{display:block;font-size:14px;color:var(--accent);font-family:var(--serif);}
+/* STICKY NAV */
+.sticky-nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none;}
+.sticky-nav::-webkit-scrollbar{display:none;}
+.nav-item{flex:0 0 auto;padding:10px 14px;font-size:10px;color:var(--muted);border-right:1px solid var(--border);cursor:pointer;text-decoration:none;transition:all .2s;white-space:nowrap;letter-spacing:1px;}
+.nav-item:hover{color:var(--accent);background:rgba(200,168,75,.05);}
+.nav-brand{flex:0 0 auto;padding:10px 18px;font-family:var(--serif);font-size:13px;color:var(--accent);border-right:2px solid var(--accent);letter-spacing:1px;}
+/* LAYOUT */
+.container{max-width:1400px;margin:0 auto;padding:0 16px;}
+/* DOMAIN SECTION */
+.domain-section{border-bottom:2px solid var(--border);padding:48px 0 32px;}
+.domain-header{display:flex;align-items:flex-start;gap:20px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border);}
+.domain-number{font-family:var(--serif);font-size:3.5rem;color:var(--accent);line-height:1;flex-shrink:0;opacity:.6;}
+.domain-title{flex:1;}
+.domain-title h2{font-family:var(--serif);font-size:1.8rem;color:var(--heading);margin-bottom:4px;}
+.pct-badge{display:inline-block;background:var(--accent);color:#000;font-size:11px;padding:2px 10px;font-weight:bold;letter-spacing:1px;}
+.domain-desc{margin-top:8px;color:var(--muted);font-size:12px;}
+/* GRIDS */
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:20px;}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px;}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px;}
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);padding:20px;position:relative;}
+.card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);}
+.card.a2::before{background:var(--accent2);}
+.card.a3::before{background:var(--accent3);}
+.card.a4::before{background:var(--accent4);}
+.card h3{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px dashed var(--border);}
+.card.a2 h3{color:var(--accent2);}
+.card.a3 h3{color:var(--accent3);}
+.card.a4 h3{color:var(--accent4);}
+/* TABLE */
+table{width:100%;border-collapse:collapse;}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+th{background:rgba(200,168,75,.08);color:var(--accent);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:8px 10px;text-align:left;border-bottom:1px solid var(--accent);}
+td{padding:7px 10px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(200,168,75,.03);}
+td:first-child{color:var(--accent);font-weight:bold;}
+/* LIST */
+ul.dl{list-style:none;}
+ul.dl li{padding:4px 0 4px 18px;position:relative;font-size:12px;border-bottom:1px solid rgba(42,42,42,.5);color:var(--text);}
+ul.dl li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-size:10px;}
+ul.dl li:last-child{border-bottom:none;}
+ul.dl li strong{color:var(--heading);}
+/* HIGHLIGHT */
+.hl{background:rgba(200,168,75,.06);border:1px solid rgba(200,168,75,.25);border-left:3px solid var(--accent);padding:12px 16px;margin:12px 0;font-size:12px;}
+.hl.r{background:rgba(224,82,82,.06);border-color:rgba(224,82,82,.25);border-left-color:var(--accent3);}
+.hl.g{background:rgba(75,200,122,.06);border-color:rgba(75,200,122,.25);border-left-color:var(--accent4);}
+.hl.p{background:rgba(123,97,255,.06);border-color:rgba(123,97,255,.25);border-left-color:var(--accent2);}
+.hl strong{color:var(--accent);}
+/* TAGS */
+.tag{display:inline-block;font-size:10px;padding:2px 7px;border:1px solid var(--accent);color:var(--accent);margin:2px;letter-spacing:1px;}
+.tag.r{border-color:var(--accent3);color:var(--accent3);}
+.tag.g{border-color:var(--accent4);color:var(--accent4);}
+.tag.p{border-color:var(--accent2);color:var(--accent2);}
+/* CODE */
+code{background:rgba(200,168,75,.08);border:1px solid rgba(200,168,75,.2);padding:1px 6px;font-family:var(--mono);font-size:11px;color:var(--accent);}
+/* HELPERS */
+.mb16{margin-bottom:16px;}.mb24{margin-bottom:24px;}.mt12{margin-top:12px;}.mt16{margin-top:16px;}
+.slabel{font-size:10px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.divider{height:1px;background:linear-gradient(90deg,var(--accent) 0%,transparent 100%);margin:16px 0;opacity:.25;}
+/* PREREQ */
+.prereq-card{background:var(--card);border:1px solid var(--accent);padding:24px;margin-bottom:32px;}
+.prereq-card h2{font-family:var(--serif);font-size:1.4rem;color:var(--accent);margin-bottom:16px;}
+/* FOOTER */
+footer{background:var(--surface);border-top:2px solid var(--accent);padding:32px 24px;text-align:center;}
+footer p{color:var(--muted);font-size:11px;letter-spacing:1px;margin:4px 0;}
+footer .brand{font-family:var(--serif);font-size:1.1rem;color:var(--accent);margin-bottom:8px;}
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--accent);}
+/* RESPONSIVE */
+@media(max-width:768px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}
+  .hero{padding:32px 16px 24px;}
+  .hero h1{font-size:2.6rem;}
+  .hero-stats{gap:10px;}
+  .stat{padding:10px 14px;flex:1 1 calc(50% - 10px);min-width:110px;}
+  .stat-val{font-size:1.3rem;}
+  .domain-header{flex-direction:column;gap:10px;}
+  .domain-number{font-size:2.2rem;}
+  .domain-title h2{font-size:1.3rem;}
+  .container{padding:0 12px;}
+  .domain-section{padding:32px 0 20px;}
+  .card{padding:14px;}
+  .tscroll table,table{display:block;overflow-x:auto;white-space:nowrap;}
+  th,td{padding:6px 8px;font-size:11px;}
+  .nav-brand{padding:8px 12px;font-size:11px;}
+  .nav-item{padding:8px 10px;font-size:9px;}
+  .domain-pill{padding:8px 10px;font-size:9px;}
+  .prereq-card{padding:16px;}
+  footer{padding:20px 12px;}
+}
+@media(max-width:480px){
+  .hero h1{font-size:2rem;}
+  .stat{flex:1 1 100%;max-width:280px;}
+  .hero-stats{flex-direction:column;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">ISC² Certification · CBK 2024 · Exam Reference</div>
+  <h1>ISC²<br><span>CISSP</span></h1>
+  <div class="hero-sub">Certified Information Systems Security Professional — Cheat Sheet Completo</div>
+  <div style="color:var(--muted);font-size:11px;letter-spacing:2px;margin-top:4px;">8 DOMAINS · CAT ADAPTIVE · PASSING: 700/1000 · 100% CBK COVERAGE</div>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-val">125–175</span><span class="stat-label">Questions CAT</span></div>
+    <div class="stat"><span class="stat-val">4h</span><span class="stat-label">Duração</span></div>
+    <div class="stat"><span class="stat-val">700/1000</span><span class="stat-label">Passing Score</span></div>
+    <div class="stat"><span class="stat-val">5 anos</span><span class="stat-label">Experiência</span></div>
+    <div class="stat"><span class="stat-val">US$749</span><span class="stat-label">Exam Fee</span></div>
+    <div class="stat"><span class="stat-val">120 CPE</span><span class="stat-label">Renovação/3 anos</span></div>
+  </div>
+</div>
+
+<!-- DOMAIN BAR -->
+<div class="domain-bar">
+  <a class="domain-pill" href="#d1"><span class="pct">15%</span>D1 · Risk</a>
+  <a class="domain-pill" href="#d2"><span class="pct">13%</span>D2 · Assets</a>
+  <a class="domain-pill" href="#d3"><span class="pct">13%</span>D3 · Arch</a>
+  <a class="domain-pill" href="#d4"><span class="pct">13%</span>D4 · Network</a>
+  <a class="domain-pill" href="#d5"><span class="pct">13%</span>D5 · IAM</a>
+  <a class="domain-pill" href="#d6"><span class="pct">12%</span>D6 · Testing</a>
+  <a class="domain-pill" href="#d7"><span class="pct">13%</span>D7 · SecOps</a>
+  <a class="domain-pill" href="#d8"><span class="pct">8%</span>D8 · SDLC</a>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <div class="nav-brand">CISSP ▸</div>
+  <a class="nav-item" href="#prereq">Pré-Req</a>
+  <a class="nav-item" href="#d1">D1·Risk</a>
+  <a class="nav-item" href="#d2">D2·Assets</a>
+  <a class="nav-item" href="#d3">D3·Arch</a>
+  <a class="nav-item" href="#d4">D4·Net</a>
+  <a class="nav-item" href="#d5">D5·IAM</a>
+  <a class="nav-item" href="#d6">D6·Test</a>
+  <a class="nav-item" href="#d7">D7·Ops</a>
+  <a class="nav-item" href="#d8">D8·SDLC</a>
+  <a class="nav-item" href="#qr">Quick Ref</a>
+</nav>
+
+<!-- ═══ PRÉ-REQUISITOS ═══ -->
+<div class="container" id="prereq" style="padding-top:40px;">
+<div class="prereq-card">
+  <h2>⬡ Pré-Requisitos, Estrutura do Exame &amp; Pós-Certificação</h2>
+  <div class="grid-3">
+    <div>
+      <div class="slabel">Experiência Profissional</div>
+      <ul class="dl">
+        <li><strong>5 anos</strong> acumulados e remunerados em ≥2 dos 8 domínios do CBK</li>
+        <li><strong>4 anos</strong> aceito com diploma universitário de 4 anos (ou equivalente aprovado pela ISC²)</li>
+        <li>1 ano substituível por cert aprovada: <span class="tag">CCSP</span><span class="tag">SSCP</span><span class="tag">CAP</span><span class="tag">CSSLP</span></li>
+        <li>Experiência não precisa ser contínua — acumulada ao longo da carreira</li>
+        <li>Part-time: 1040h/ano = 1 ano de experiência</li>
+        <li>Aprovado sem experiência = <strong>Associate of ISC²</strong> — 6 anos p/ completar</li>
+        <li>Internship não conta; voluntário pode contar com documentação</li>
+      </ul>
+    </div>
+    <div>
+      <div class="slabel">Formato CAT (inglês)</div>
+      <ul class="dl">
+        <li><strong>CAT</strong> — Computerized Adaptive Testing; dificuldade se ajusta em tempo real</li>
+        <li>125 a 175 questões — encerra ao atingir confiança estatística</li>
+        <li>Mínimo 125 qts; máximo 175 qts — ambos resultam em pass/fail</li>
+        <li>Duração: <strong>4 horas</strong> — incluindo tutorial e pesquisa pós-exame</li>
+        <li>Passing score: <strong>700/1000</strong> — escala compensatória (não 70%)</li>
+        <li>Formato linear disponível em outros idiomas (250 qts, 6h)</li>
+        <li>Pearson VUE — presencial ou online proctored</li>
+        <li>Custo: <strong>US$749</strong>; reschedule: 48h antes sem taxa</li>
+      </ul>
+    </div>
+    <div>
+      <div class="slabel">Pós-Certificação</div>
+      <ul class="dl">
+        <li>Endosso por membro ISC² em <strong>9 meses</strong> após aprovação</li>
+        <li><strong>120 CPE</strong> em 3 anos (mínimo 40/ano); Grupo A: domínios CBK; Grupo B: habilidades gerais</li>
+        <li>AMF: <strong>US$125/ano</strong> (pago junto dos CPE)</li>
+        <li>Aderir ao <strong>Code of Ethics ISC²</strong> — violação = revogação</li>
+        <li>Concentrações: <strong>ISSAP</strong> (Architecture) · <strong>ISSEP</strong> (Engineering) · <strong>ISSMP</strong> (Management)</li>
+        <li>Validade: <strong>3 anos</strong> — renovação por CPE (não re-exame)</li>
+        <li>Certificação ativa = membro em boa situação no ISC²</li>
+      </ul>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="slabel">Pesos por Domínio CBK 2024</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(200,168,75,.05);border:1px solid var(--border);padding:8px 14px;flex:1;min-width:220px;"><span style="color:var(--accent);font-size:1.3rem;font-family:var(--serif);min-width:40px;">15%</span><span style="font-size:11px;">D1 · Security &amp; Risk Management</span></div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(200,168,75,.05);border:1px solid var(--border);padding:8px 14px;flex:1;min-width:220px;"><span style="color:var(--accent);font-size:1.3rem;font-family:var(--serif);min-width:40px;">13%</span><span style="font-size:11px;">D2 · Asset Security</span></div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(200,168,75,.05);border:1px solid var(--border);padding:8px 14px;flex:1;min-width:220px;"><span style="color:var(--accent);font-size:1.3rem;font-family:var(--serif);min-width:40px;">13%</span><span style="font-size:11px;">D3 · Security Architecture &amp; Engineering</span></div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(200,168,75,.05);border:1px solid var(--border);padding:8px 14px;flex:1;min-width:220px;"><span style="color:var(--accent);font-size:1.3rem;font-family:var(--serif);min-width:40px;">13%</span><span style="font-size:11px;">D4 · Communication &amp; Network Security</span></div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(200,168,75,.05);border:1px solid var(--border);padding:8px 14px;flex:1;min-width:220px;"><span style="color:var(--accent);font-size:1.3rem;font-family:var(--serif);min-width:40px;">13%</span><span style="font-size:11px;">D5 · Identity &amp; Access Management</span></div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(200,168,75,.05);border:1px solid var(--border);padding:8px 14px;flex:1;min-width:220px;"><span style="color:var(--accent);font-size:1.3rem;font-family:var(--serif);min-width:40px;">12%</span><span style="font-size:11px;">D6 · Security Assessment &amp; Testing</span></div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(200,168,75,.05);border:1px solid var(--border);padding:8px 14px;flex:1;min-width:220px;"><span style="color:var(--accent);font-size:1.3rem;font-family:var(--serif);min-width:40px;">13%</span><span style="font-size:11px;">D7 · Security Operations</span></div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(200,168,75,.05);border:1px solid var(--border);padding:8px 14px;flex:1;min-width:220px;"><span style="color:var(--accent);font-size:1.3rem;font-family:var(--serif);min-width:40px;">8%</span><span style="font-size:11px;">D8 · Software Development Security</span></div>
+  </div>
+  <div class="hl mt16"><strong>⚠ MENTALIDADE CISSP:</strong> Pense como <strong>MANAGER / CISO</strong>, não como técnico operacional. O exame avalia raciocínio gerencial, priorização por risco e alinhamento ao negócio. Quando em dúvida: <em>proteja a vida primeiro → siga políticas → minimize impacto ao negócio → preserve evidências antes de remediar.</em></div>
+</div>
+</div>
+
+<!-- ═══ D1 · SECURITY & RISK MANAGEMENT (15%) ═══ -->
+<div class="domain-section" id="d1">
+<div class="container">
+  <div class="domain-header">
+    <div class="domain-number">01</div>
+    <div class="domain-title">
+      <h2>Security &amp; Risk Management</h2>
+      <span class="pct-badge">15% DO EXAME — MAIOR DOMÍNIO</span>
+      <p class="domain-desc">Fundamentos de segurança, governança, compliance, ética profissional, gestão de risco, threat modeling, continuidade de negócio e segurança de pessoal.</p>
+    </div>
+  </div>
+
+  <div class="slabel mb24">1.1 · Pilares & Conceitos Fundamentais</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>CIA Triad + Extensões</h3>
+      <div class="tscroll"><table>
+        <tr><th>Pilar</th><th>Definição</th><th>Controles</th></tr>
+        <tr><td>Confidentiality</td><td>Acesso apenas por autorizados</td><td>Criptografia, ACL, MFA, NDA</td></tr>
+        <tr><td>Integrity</td><td>Dados não alterados indevidamente</td><td>Hash, assinatura digital, checksum, versioning</td></tr>
+        <tr><td>Availability</td><td>Sistemas disponíveis quando necessário</td><td>Redundância, BCP, DDoS mitigation, SLA</td></tr>
+        <tr><td>Non-repudiation</td><td>Não pode negar autoria/ação</td><td>Assinatura digital, audit log</td></tr>
+        <tr><td>Authenticity</td><td>Garantia da origem do dado</td><td>HMAC, certificado digital</td></tr>
+        <tr><td>Safety</td><td>Proteção da vida humana</td><td><strong>PRIORIDADE MÁXIMA no CISSP</strong></td></tr>
+        <tr><td>Privacy</td><td>Controle sobre dados pessoais</td><td>DPA, GDPR, LGPD, minimização</td></tr>
+      </table></div>
+      <div class="hl mt12 r"><strong>DAD Triad</strong> (oposto do CIA): Disclosure · Alteration · Destruction</div>
+    </div>
+    <div class="card a2">
+      <h3>Princípios de Design Seguro</h3>
+      <ul class="dl">
+        <li><strong>Least Privilege:</strong> mínimo acesso necessário para a função</li>
+        <li><strong>Need to Know:</strong> acesso só ao necessário para tarefa específica</li>
+        <li><strong>Separation of Duties (SoD):</strong> divide tarefas críticas entre pessoas diferentes</li>
+        <li><strong>Dual Control:</strong> duas pessoas devem agir simultaneamente</li>
+        <li><strong>Two-Person Integrity:</strong> nenhuma pessoa sozinha acessa algo sensível</li>
+        <li><strong>Job Rotation:</strong> reduz fraude, detecta irregularidades, evita dependência</li>
+        <li><strong>Mandatory Vacation:</strong> afastamento forçado detecta irregularidades</li>
+        <li><strong>Defense in Depth:</strong> camadas múltiplas e sobrepostas de controle</li>
+        <li><strong>Fail Secure / Fail Safe:</strong> falha → estado mais seguro (deny all)</li>
+        <li><strong>Economy of Mechanism:</strong> design simples = menos superfície de ataque</li>
+        <li><strong>Open Design:</strong> segurança não depende do sigilo do algoritmo</li>
+        <li><strong>Complete Mediation:</strong> todo acesso verificado a cada vez (sem cache)</li>
+        <li><strong>Psychological Acceptability:</strong> controles não dificultam uso legítimo</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Parker Hexad (Donn Parker)</h3>
+      <ul class="dl">
+        <li><strong>Confidentiality</strong> — acesso restrito a autorizados</li>
+        <li><strong>Integrity</strong> — dados corretos e completos</li>
+        <li><strong>Availability</strong> — acessível quando necessário</li>
+        <li><strong>Authenticity</strong> — origem verificada e genuína</li>
+        <li><strong>Non-repudiation</strong> — não pode negar ação realizada</li>
+        <li><strong>Possession / Control</strong> — quem possui controla o dado</li>
+      </ul>
+      <div class="divider"></div>
+      <div class="slabel mt12">Conceitos Adicionais</div>
+      <ul class="dl">
+        <li><strong>Due Care:</strong> fazer o que um profissional razoável faria</li>
+        <li><strong>Due Diligence:</strong> investigar antes de tomar decisão</li>
+        <li><strong>Prudent Person Rule:</strong> padrão de cuidado razoável exigido</li>
+        <li><strong>Liability:</strong> responsabilidade legal por falha de segurança</li>
+        <li><strong>Negligence:</strong> falha em exercer due care</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">1.2 · Governança & Frameworks</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Hierarquia de Documentos</h3>
+      <div class="tscroll"><table>
+        <tr><th>Nível</th><th>Documento</th><th>Característica</th><th>Obrigatório?</th></tr>
+        <tr><td>Estratégico</td><td>Policy</td><td>Declaração de intenção; aprovada pela alta gestão</td><td>Sim</td></tr>
+        <tr><td>Tático</td><td>Standard</td><td>Requisitos específicos e mensuráveis</td><td>Sim</td></tr>
+        <tr><td>Tático</td><td>Baseline</td><td>Configuração mínima aceitável para sistemas</td><td>Sim</td></tr>
+        <tr><td>Operacional</td><td>Guideline</td><td>Recomendações — melhor prática não obrigatória</td><td>Não</td></tr>
+        <tr><td>Operacional</td><td>Procedure</td><td>Passos detalhados passo-a-passo</td><td>Sim (quando existe)</td></tr>
+      </table></div>
+    </div>
+    <div class="card a2">
+      <h3>Frameworks de Governança</h3>
+      <div class="tscroll"><table>
+        <tr><th>Framework</th><th>Foco</th></tr>
+        <tr><td>COBIT 2019</td><td>Governança de TI; alinhamento negócio-TI; 40 objetivos de governança</td></tr>
+        <tr><td>ITIL v4</td><td>ITSM; Service Value System; 34 práticas</td></tr>
+        <tr><td>ISO/IEC 27001:2022</td><td>SGSI; 93 controles em 4 temas (Organizational, People, Physical, Technological)</td></tr>
+        <tr><td>ISO/IEC 27002:2022</td><td>Guia de implementação dos controles do 27001</td></tr>
+        <tr><td>NIST CSF 2.0</td><td>Govern, Identify, Protect, Detect, Respond, Recover</td></tr>
+        <tr><td>NIST SP 800-53 r5</td><td>Controles para sistemas federais EUA — 20 famílias</td></tr>
+        <tr><td>ISO 31000:2018</td><td>Gestão de riscos organizacionais; princípios e diretrizes</td></tr>
+        <tr><td>TOGAF 10</td><td>Arquitetura empresarial; ADM</td></tr>
+        <tr><td>SABSA</td><td>Security Architecture; alinha risco ao negócio</td></tr>
+        <tr><td>SOC 2</td><td>Trust Services Criteria para provedores de serviço</td></tr>
+      </table></div>
+    </div>
+    <div class="card a3">
+      <h3>ISC² Code of Ethics — 4 Cânones</h3>
+      <div class="hl g"><strong>Prioridade: o cânone de menor número prevalece em conflito</strong></div>
+      <ul class="dl mt12">
+        <li><strong>1º — Protect society,</strong> the common good, necessary public trust and confidence, and the infrastructure</li>
+        <li><strong>2º — Act honorably,</strong> honestly, justly, responsibly, and legally</li>
+        <li><strong>3º — Provide diligent</strong> and competent service to principals (empregadores, clientes)</li>
+        <li><strong>4º — Advance and protect</strong> the profession</li>
+      </ul>
+      <div class="hl mt12 r" style="font-size:11px;"><strong>⚠</strong> Se membro ISC² violar o Code of Ethics, você é <em>obrigado</em> a reportar à ISC². Não reportar também é violação do cânone 4.</div>
+    </div>
+  </div>
+
+  <div class="slabel mb24">1.3 · Gestão de Riscos</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Terminologia de Risco</h3>
+      <div class="tscroll"><table>
+        <tr><th>Termo</th><th>Definição</th></tr>
+        <tr><td>Threat</td><td>Agente ou evento capaz de causar dano a um ativo</td></tr>
+        <tr><td>Threat Agent</td><td>Entidade que explora a vulnerabilidade (hacker, insider, desastre)</td></tr>
+        <tr><td>Vulnerability</td><td>Fraqueza ou ausência de controle explorada por ameaça</td></tr>
+        <tr><td>Risk</td><td>Probabilidade × Impacto de uma ameaça explorar uma vulnerabilidade</td></tr>
+        <tr><td>Exposure</td><td>Instância de susceptibilidade à perda de um ativo</td></tr>
+        <tr><td>Safeguard / Control</td><td>Medida que reduz risco — preventiva, detectiva ou corretiva</td></tr>
+        <tr><td>Total Risk</td><td>Risco sem nenhum controle aplicado</td></tr>
+        <tr><td>Residual Risk</td><td>Risco que permanece após aplicar controles</td></tr>
+        <tr><td>Control Gap</td><td>Total Risk − Residual Risk = eficácia dos controles</td></tr>
+        <tr><td>Risk Appetite</td><td>Nível de risco que a org está disposta a aceitar estrategicamente</td></tr>
+        <tr><td>Risk Tolerance</td><td>Desvio aceitável do risk appetite operacionalmente</td></tr>
+        <tr><td>Risk Threshold</td><td>Limite máximo de risco inaceitável — aciona resposta imediata</td></tr>
+      </table></div>
+    </div>
+    <div class="card a3">
+      <h3>Respostas ao Risco (MATA)</h3>
+      <ul class="dl">
+        <li><strong>Mitigate / Reduce:</strong> implementar controles para reduzir probabilidade ou impacto</li>
+        <li><strong>Assign / Transfer / Share:</strong> seguro, terceirização, SLA, cláusulas contratuais</li>
+        <li><strong>Avoid / Terminate:</strong> eliminar a atividade, processo ou ativo que gera o risco</li>
+        <li><strong>Accept / Retain:</strong> aceitar conscientemente; documentado e assinado pelo owner</li>
+        <li><strong style="color:var(--accent3);">Reject / Ignore:</strong> <span class="tag r">NÃO É OPÇÃO VÁLIDA</span> — nunca aceito no CISSP</li>
+      </ul>
+      <div class="divider"></div>
+      <div class="slabel">Fórmulas Quantitativas</div>
+      <ul class="dl">
+        <li><code>ALE = SLE × ARO</code> — Annualized Loss Expectancy</li>
+        <li><code>SLE = AV × EF</code> — Single Loss Expectancy</li>
+        <li><code>AV</code> = Asset Value | <code>EF</code> = Exposure Factor (0–1)</li>
+        <li><code>ARO</code> = Annualized Rate of Occurrence</li>
+        <li><code>Valor do Controle = ALE₁ − ALE₂ − Custo Anual do Controle</code></li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>Análise de Risco — Tipos</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Método</th><th>Output</th><th>Quando usar</th></tr>
+        <tr><td>Quantitativa</td><td>Cálculo matemático (ALE, SLE, ARO)</td><td>Valor $ / moeda</td><td>ROI de controles, seguro</td></tr>
+        <tr><td>Qualitativa</td><td>Subjetivo; High/Med/Low; risk matrix</td><td>Ranking relativo</td><td>Levantamento inicial, consciência</td></tr>
+        <tr><td>Semi-quantitativa</td><td>Combina ambas; score numérico</td><td>Score relativo</td><td>Equilíbrio precisão/esforço</td></tr>
+      </table></div>
+      <div class="divider"></div>
+      <div class="slabel">Threat Modeling</div>
+      <div class="tscroll"><table>
+        <tr><th>Método</th><th>Foco</th></tr>
+        <tr><td>STRIDE</td><td>Categorias de ameaça: Spoofing, Tampering, Repudiation, Info Disc, DoS, Elevation</td></tr>
+        <tr><td>PASTA</td><td>Process for Attack Simulation and Threat Analysis — orientado a negócio</td></tr>
+        <tr><td>DREAD</td><td>Score: Damage, Reproducibility, Exploitability, Affected users, Discoverability</td></tr>
+        <tr><td>LINDDUN</td><td>Foco em privacidade — ameaças a dados pessoais</td></tr>
+        <tr><td>TRIKE</td><td>Risk-based; baseado em requisitos aceitáveis de risco</td></tr>
+        <tr><td>VAST</td><td>Visual, Agile, Simple — escala para DevSecOps</td></tr>
+        <tr><td>Attack Trees</td><td>Hierarquia de formas de atingir objetivo do atacante</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="slabel mb24">1.4 · Compliance, Leis & Regulamentações</div>
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Principais Regulamentações Globais</h3>
+      <div class="tscroll"><table>
+        <tr><th>Lei / Norma</th><th>Escopo / Detalhe</th></tr>
+        <tr><td>GDPR</td><td>Proteção de dados pessoais — UE; multa até €20M ou 4% receita global; DPO obrigatório em certos casos</td></tr>
+        <tr><td>CCPA / CPRA</td><td>Privacidade consumidores — Califórnia, EUA; opt-out de venda de dados</td></tr>
+        <tr><td>HIPAA</td><td>PHI (Protected Health Information) — EUA; Privacy Rule + Security Rule + Breach Notification Rule</td></tr>
+        <tr><td>HITECH</td><td>Amplia HIPAA; notificação de breach obrigatória; penalidades maiores</td></tr>
+        <tr><td>SOX (Sarbanes-Oxley)</td><td>Controles financeiros empresas abertas EUA; Seção 302 (CEO/CFO cert.) e 404 (controles internos)</td></tr>
+        <tr><td>PCI DSS v4.0</td><td>Dados de cartão; 12 requisitos; 4 níveis de conformidade por volume de transações</td></tr>
+        <tr><td>LGPD</td><td>Lei Geral de Proteção de Dados — Brasil; análogo ao GDPR; ANPD como autoridade</td></tr>
+        <tr><td>FISMA</td><td>Segurança de sistemas federais EUA; NIST SP 800-53 como base</td></tr>
+        <tr><td>GLBA (Gramm-Leach-Bliley)</td><td>Privacidade de dados financeiros — EUA; Safeguards Rule</td></tr>
+        <tr><td>FERPA</td><td>Dados educacionais de estudantes — EUA</td></tr>
+        <tr><td>COPPA</td><td>Privacidade de crianças &lt;13 anos online — EUA</td></tr>
+        <tr><td>ITAR / EAR</td><td>Export control de tecnologia militar/dual-use — EUA; impacta segurança de dados de defesa</td></tr>
+        <tr><td>Basel III / IV</td><td>Regulação financeira bancária — risco operacional inclui cyber risk</td></tr>
+        <tr><td>NIS2 Directive</td><td>Segurança de redes e sistemas na UE — substitui NIS; setores essenciais e importantes</td></tr>
+      </table></div>
+    </div>
+    <div class="card a4">
+      <h3>Tipos de Leis</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Descrição</th><th>Exemplos</th></tr>
+        <tr><td>Criminal Law</td><td>Estado vs. indivíduo; punição penal</td><td>CFAA, crimes cibernéticos</td></tr>
+        <tr><td>Civil / Tort Law</td><td>Parte lesada vs. causador; indenização</td><td>Processo por negligência, vazamento de dados</td></tr>
+        <tr><td>Administrative Law</td><td>Regulações governamentais; agências</td><td>HIPAA, GDPR, FTC</td></tr>
+        <tr><td>Private Regulations</td><td>Normas de indústria — obrigatórias por contrato</td><td>PCI DSS, SWIFT CSP</td></tr>
+      </table></div>
+      <div class="divider"></div>
+      <div class="slabel">Crimes Cibernéticos — Conceitos</div>
+      <ul class="dl">
+        <li><strong>CFAA:</strong> Computer Fraud and Abuse Act — EUA; acesso não autorizado</li>
+        <li><strong>Computer Crime:</strong> instrumento do crime (hacking) vs. alvo do crime (servidor atacado)</li>
+        <li><strong>Entrapment:</strong> governo induz crime que não ocorreria — ilegal</li>
+        <li><strong>Enticement:</strong> governo cria oportunidade para crime já planejado — legal (honeypot)</li>
+        <li><strong>IP Law:</strong> Copyright, Patent, Trademark, Trade Secret</li>
+        <li><strong>Trade Secret:</strong> protegido por NDA e práticas de segurança, não registro</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">1.5 · Segurança de Pessoal (Personnel Security)</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Ciclo de Vida do Funcionário</h3>
+      <div class="tscroll"><table>
+        <tr><th>Fase</th><th>Controles de Segurança</th></tr>
+        <tr><td>Pre-Employment</td><td>Background check, verificação de referências, validação de credenciais, NDA</td></tr>
+        <tr><td>Onboarding</td><td>Security training, acesso mínimo inicial, política de uso aceitável (AUP)</td></tr>
+        <tr><td>During Employment</td><td>Treinamento contínuo, revisão de acesso, monitoramento, job rotation, mandatory vacation</td></tr>
+        <tr><td>Termination</td><td>Revogação imediata de acesso, devolução de ativos, exit interview, NDA reminder</td></tr>
+        <tr><td>Post-Employment</td><td>NDA e non-compete enforcement, proteção de IP</td></tr>
+      </table></div>
+    </div>
+    <div class="card a2">
+      <h3>Ameaças de Insider</h3>
+      <ul class="dl">
+        <li><strong>Malicious Insider:</strong> funcionário com intenção deliberada de causar dano</li>
+        <li><strong>Negligent Insider:</strong> funcionário descuidado; não segue política; maior volume</li>
+        <li><strong>Compromised Insider:</strong> credenciais legítimas usadas por atacante externo</li>
+        <li><strong>Third-Party Insider:</strong> fornecedor, prestador com acesso privilegiado</li>
+        <li><strong>Indicadores:</strong> acesso fora de horário, download em massa, acesso a dados fora do escopo, comportamento defensivo</li>
+        <li><strong>Controles:</strong> UEBA, DLP, PAM, revisão de acesso, cultura de segurança</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Security Awareness & Training</h3>
+      <ul class="dl">
+        <li><strong>Awareness:</strong> criar consciência — "o que não fazer"; pôsteres, e-mails, briefings</li>
+        <li><strong>Training:</strong> ensinar habilidades específicas — como usar ferramentas, reportar incidentes</li>
+        <li><strong>Education:</strong> compreensão profunda — voltada a profissionais de segurança</li>
+        <li><strong>Phishing Simulation:</strong> teste controlado para medir e educar funcionários</li>
+        <li><strong>Social Engineering Awareness:</strong> pretexting, vishing, smishing, baiting</li>
+        <li><strong>Métricas:</strong> % completou treinamento, click rate em simulações, tempo de reporte</li>
+        <li><strong>Frequência:</strong> onboarding + anual mínimo; alta rotatividade = mais frequente</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">1.6 · Third-Party Risk & Supply Chain</div>
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Gestão de Risco de Terceiros (TPRM)</h3>
+      <ul class="dl">
+        <li><strong>Vendor Due Diligence:</strong> avaliação antes da contratação — questionários, certifications, financials</li>
+        <li><strong>Risk Assessment:</strong> classificar vendor por nível de acesso e criticidade</li>
+        <li><strong>SLA (Service Level Agreement):</strong> metas de disponibilidade, suporte, patching</li>
+        <li><strong>Right to Audit:</strong> cláusula contratual de direito de auditar o fornecedor</li>
+        <li><strong>SOC 2 Type II:</strong> relatório de auditoria independente — preferível a questionário</li>
+        <li><strong>Penetration Test Results:</strong> solicitar evidência de pentest recente</li>
+        <li><strong>MSA (Master Service Agreement):</strong> contrato mestre; DPA (Data Processing Agreement) para dados pessoais</li>
+        <li><strong>Offboarding de Vendor:</strong> revogar acesso, recuperar dados, destruição segura</li>
+      </ul>
+    </div>
+    <div class="card a3">
+      <h3>Supply Chain Security</h3>
+      <ul class="dl">
+        <li><strong>Supply Chain Risk:</strong> SolarWinds, XZ Utils, Log4Shell em dependências — comprometimento de software legítimo</li>
+        <li><strong>Hardware Tampering:</strong> chips maliciosos inseridos na cadeia de produção</li>
+        <li><strong>Counterfeit Hardware:</strong> hardware falsificado com backdoor ou qualidade inferior</li>
+        <li><strong>SBOM (Software Bill of Materials):</strong> inventário de todos os componentes de software — rastreabilidade de vulns</li>
+        <li><strong>Secure Software Acquisition:</strong> verificação de hash, assinatura de código, proveniência</li>
+        <li><strong>SCRM (Supply Chain Risk Management):</strong> NIST SP 800-161 — framework específico</li>
+        <li><strong>Trusted Foundry:</strong> fabricação de hardware em instalações verificadas pelo governo</li>
+        <li><strong>SLSA Framework:</strong> Supply Chain Levels for Software Artifacts — níveis 1-4 de garantia</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">1.7 · BCP / DRP — Business Continuity</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Métricas de Continuidade</h3>
+      <div class="tscroll"><table>
+        <tr><th>Métrica</th><th>Definição</th><th>Relação</th></tr>
+        <tr><td>RTO</td><td>Recovery Time Objective — tempo máx p/ restaurar serviço</td><td>Define tipo de site de recovery</td></tr>
+        <tr><td>RPO</td><td>Recovery Point Objective — perda máx de dados aceita (em tempo)</td><td>Define frequência de backup</td></tr>
+        <tr><td>MTD / MTPD</td><td>Maximum Tolerable Downtime — limite absoluto antes de impacto irreversível</td><td>MTD ≥ RTO sempre</td></tr>
+        <tr><td>WRT</td><td>Work Recovery Time — tempo p/ retornar operação normal após sistemas up</td><td>RTO + WRT ≤ MTD</td></tr>
+        <tr><td>MTBF</td><td>Mean Time Between Failures — confiabilidade do sistema</td><td>↑ MTBF = mais confiável</td></tr>
+        <tr><td>MTTR</td><td>Mean Time To Repair — velocidade de reparo</td><td>↓ MTTR = mais ágil</td></tr>
+        <tr><td>SDO</td><td>Service Delivery Objective — nível mínimo de serviço durante incidente</td><td>Abaixo da operação normal</td></tr>
+      </table></div>
+    </div>
+    <div class="card a2">
+      <h3>Sites de Recovery</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>RTO</th><th>Custo</th><th>Dado/Infra</th></tr>
+        <tr><td>Hot Site</td><td>Horas (&lt;4h)</td><td>Muito alto</td><td>Infra idêntica + dados real-time</td></tr>
+        <tr><td>Warm Site</td><td>Dias (1–7d)</td><td>Médio</td><td>Infra parcial; dado periódico</td></tr>
+        <tr><td>Cold Site</td><td>Semanas (+7d)</td><td>Baixo</td><td>Espaço físico apenas; sem equipamento/dado</td></tr>
+        <tr><td>Mobile Site</td><td>Variável</td><td>Médio</td><td>Unidade transportável; rápida implantação</td></tr>
+        <tr><td>Reciprocal Agreement</td><td>Variável</td><td>Muito baixo</td><td>Acordo mútuo entre orgs; compartilham capacidade</td></tr>
+        <tr><td>Cloud DR (DRaaS)</td><td>Min–Horas</td><td>OpEx variável</td><td>Replicação cloud; escala sob demanda</td></tr>
+        <tr><td>Mirrored Site</td><td>Instantâneo</td><td>Máximo</td><td>Réplica ativa-ativa; failover automático</td></tr>
+      </table></div>
+    </div>
+    <div class="card a3">
+      <h3>Processo BCP — 7 Etapas</h3>
+      <ul class="dl">
+        <li><strong>1. Project Initiation:</strong> escopo, equipe de BCP, orçamento, suporte executivo</li>
+        <li><strong>2. BIA (Business Impact Analysis):</strong> identifica funções críticas, dependências, MTD, RPO/RTO, perdas financeiras e reputacionais</li>
+        <li><strong>3. Identify Preventive Controls:</strong> reduz probabilidade/impacto de desastre</li>
+        <li><strong>4. Recovery Strategies:</strong> hot/warm/cold site, cloud DR, mutual agreements</li>
+        <li><strong>5. Plan Development:</strong> documentação detalhada, papéis, contatos, checklists</li>
+        <li><strong>6. Testing &amp; Exercises:</strong> valida eficácia do plano</li>
+        <li><strong>7. Training &amp; Maintenance:</strong> revisão mínimo anual e após incidente ou mudança significativa</li>
+      </ul>
+      <div class="divider"></div>
+      <div class="slabel">Tipos de Teste de BCP/DRP</div>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Método</th><th>Disruptivo?</th></tr>
+        <tr><td>Checklist Review</td><td>Revisão documental; verifica atualização</td><td>Não</td></tr>
+        <tr><td>Structured Walkthrough</td><td>Equipe analisa plano em reunião; tabletop</td><td>Não</td></tr>
+        <tr><td>Simulation Test</td><td>Simula desastre; equipes respondem como se fosse real</td><td>Não</td></tr>
+        <tr><td>Parallel Test</td><td>Site alternativo ativado enquanto produção continua</td><td>Parcial</td></tr>
+        <tr><td>Full Interruption</td><td>Produção desligada; recovery completo ativado</td><td>Sim — máximo risco</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="slabel mb24">1.8 · Privacy Program, FAIR & Security Program Management</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>OECD Privacy Principles (1980/2013)</h3>
+      <ul class="dl">
+        <li><strong>Collection Limitation:</strong> coletar dados por meios legais e justos; com consentimento</li>
+        <li><strong>Data Quality:</strong> dados relevantes, precisos e atualizados para a finalidade</li>
+        <li><strong>Purpose Specification:</strong> finalidade especificada no momento da coleta</li>
+        <li><strong>Use Limitation:</strong> não usar além da finalidade — salvo consentimento ou lei</li>
+        <li><strong>Security Safeguards:</strong> proteção técnica e organizacional</li>
+        <li><strong>Openness:</strong> transparência sobre práticas e políticas de privacidade</li>
+        <li><strong>Individual Participation:</strong> titular pode acessar, corrigir e contestar seus dados</li>
+        <li><strong>Accountability:</strong> controlador responsável pelo cumprimento dos princípios</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>FAIR — Factor Analysis of Information Risk</h3>
+      <ul class="dl">
+        <li><strong>FAIR:</strong> framework quantitativo; expressa risco em valor financeiro ($)</li>
+        <li><code>Risk = LEF × LM</code></li>
+        <li><strong>LEF:</strong> Loss Event Frequency = TEF × Vulnerability</li>
+        <li><strong>TEF:</strong> Threat Event Frequency — freq. com que a ameaça age</li>
+        <li><strong>Vulnerability:</strong> probabilidade de o controle falhar</li>
+        <li><strong>LM:</strong> Loss Magnitude = PLM (direta) + SLM (indireta)</li>
+        <li><strong>SLM:</strong> reputação, regulatório, resposta a incidente</li>
+        <li><strong>Uso:</strong> justificar ROI de controles para board e CFO</li>
+        <li><strong>vs. ALE:</strong> FAIR mais granular; ALE mais simples; ambos quantitativos</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Security Program Management</h3>
+      <ul class="dl">
+        <li><strong>CISO posição ideal:</strong> reporta ao CEO ou CRO — não ao CIO (independência)</li>
+        <li><strong>Governance Committee:</strong> CISO + CIO + CFO + Legal + Negócio</li>
+        <li><strong>RACI Matrix:</strong> Responsible, Accountable, Consulted, Informed</li>
+        <li><strong>Security Charter:</strong> autoridade e responsabilidade formal do programa</li>
+        <li><strong>Metrics para Board:</strong> risk posture, patch %, incidents, compliance, ROSI</li>
+        <li><strong>Budget:</strong> benchmarking por setor; % receita ou % orçamento TI</li>
+        <li><strong>M&amp;A Due Diligence:</strong> avaliar postura de segurança do alvo antes de adquirir</li>
+        <li><strong>Divestitures:</strong> separação segura de sistemas, dados e credenciais</li>
+        <li><strong>Organizational Processes:</strong> integrar segurança em processos de negócio — não adicionar depois</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">1.9 · Threat Intelligence</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Tipos de Threat Intelligence</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Audiência</th><th>Conteúdo</th></tr>
+        <tr><td>Strategic</td><td>C-Level, Board</td><td>Tendências macro, impacto ao negócio, geopolítica</td></tr>
+        <tr><td>Tactical</td><td>Security Manager</td><td>TTPs, MITRE ATT&amp;CK, campanhas de atores</td></tr>
+        <tr><td>Operational</td><td>SOC, IR Team</td><td>Campanhas ativas, alvos, timing</td></tr>
+        <tr><td>Technical</td><td>Analistas, ferramentas</td><td>IoCs: IPs, hashes, domínios, URLs, regras YARA/Sigma</td></tr>
+      </table></div>
+    </div>
+    <div class="card a2">
+      <h3>Fontes & Formatos de CTI</h3>
+      <ul class="dl">
+        <li><strong>OSINT:</strong> fontes abertas — VirusTotal, Shodan, Censys, threat feeds públicos</li>
+        <li><strong>ISAC:</strong> Information Sharing and Analysis Center — por setor (FS-ISAC, H-ISAC)</li>
+        <li><strong>Dark Web:</strong> fóruns, marketplaces — requer opsec adequado</li>
+        <li><strong>STIX 2.1:</strong> Structured Threat Information eXpression — formato JSON para CTI</li>
+        <li><strong>TAXII 2.1:</strong> Trusted Automated eXchange — protocolo de transporte de STIX</li>
+        <li><strong>MISP:</strong> Malware Information Sharing Platform — plataforma open-source de CTI</li>
+        <li><strong>IoC:</strong> hash MD5/SHA, IP, domínio, URL, email, mutex, registro, artefato</li>
+        <li><strong>TTP:</strong> Tactics, Techniques, Procedures — nível mais alto de CTI</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>MITRE ATT&amp;CK Framework</h3>
+      <ul class="dl">
+        <li><strong>Táticas (14):</strong> Reconnaissance, Resource Development, Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, C2, Exfiltration, Impact</li>
+        <li><strong>Técnicas:</strong> métodos específicos por tática (ex: T1566 Phishing)</li>
+        <li><strong>Sub-técnicas:</strong> variações específicas (ex: T1566.001 Spearphishing Attachment)</li>
+        <li><strong>Grupos (APTs):</strong> atores mapeados com TTPs conhecidas</li>
+        <li><strong>Matrizes:</strong> Enterprise, Mobile, ICS</li>
+        <li><strong>Uso:</strong> threat modeling, detecção, purple teaming, gap analysis</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ D2 · ASSET SECURITY (13%) ═══ -->
+<div class="domain-section" id="d2">
+<div class="container">
+  <div class="domain-header">
+    <div class="domain-number">02</div>
+    <div class="domain-title">
+      <h2>Asset Security</h2>
+      <span class="pct-badge">13% DO EXAME</span>
+      <p class="domain-desc">Classificação de dados, propriedade, privacidade, ciclo de vida, retenção, controles de proteção, destruição segura e scoping de controles.</p>
+    </div>
+  </div>
+
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Classificação — Governo EUA</h3>
+      <div class="tscroll"><table>
+        <tr><th>Nível</th><th>Impacto se Comprometido</th></tr>
+        <tr><td>Top Secret (TS)</td><td>Dano <em>grave</em> à segurança nacional</td></tr>
+        <tr><td>Secret (S)</td><td>Dano <em>sério</em> à segurança nacional</td></tr>
+        <tr><td>Confidential (C)</td><td>Dano à segurança nacional</td></tr>
+        <tr><td>Sensitive but Unclassified (SBU)</td><td>Requer proteção; sem classificação formal</td></tr>
+        <tr><td>Unclassified (U)</td><td>Sem restrição de distribuição</td></tr>
+      </table></div>
+      <div class="hl mt12 p" style="font-size:11px;"><strong>TS/SCI:</strong> Top Secret / Sensitive Compartmented Information — compartimentos adicionais dentro do TS</div>
+    </div>
+    <div class="card a2">
+      <h3>Classificação — Setor Privado</h3>
+      <div class="tscroll"><table>
+        <tr><th>Nível</th><th>Exemplos de Dados</th><th>Controles Típicos</th></tr>
+        <tr><td>Confidential / Proprietary</td><td>Segredos comerciais, IP, fórmulas, estratégia M&amp;A</td><td>MFA, criptografia, NDA, DRM</td></tr>
+        <tr><td>Private</td><td>RH, dados pessoais, médicos, financeiros pessoais</td><td>Criptografia, RBAC, DLP, auditoria</td></tr>
+        <tr><td>Sensitive</td><td>Dados que requerem proteção extra (não classificados como private)</td><td>Controles moderados, acesso restrito</td></tr>
+        <tr><td>Public</td><td>Marketing, press releases, informações divulgadas</td><td>Integridade; disponibilidade</td></tr>
+      </table></div>
+    </div>
+    <div class="card a4">
+      <h3>Papéis de Proteção de Dados</h3>
+      <ul class="dl">
+        <li><strong>Data Owner:</strong> executivo/gerente responsável; define classificação, política de uso e retenção</li>
+        <li><strong>Data Custodian:</strong> TI; implementa os controles definidos pelo owner (backup, acesso, criptografia)</li>
+        <li><strong>Data Steward:</strong> garante qualidade, governança, consistência e catalogação dos dados</li>
+        <li><strong>Data User:</strong> utiliza os dados no dia a dia seguindo as políticas</li>
+        <li><strong>Data Controller (GDPR):</strong> determina propósito e meios do tratamento de dados pessoais</li>
+        <li><strong>Data Processor (GDPR):</strong> processa dados em nome do controller; vinculado por DPA</li>
+        <li><strong>Data Subject (GDPR):</strong> indivíduo cujos dados pessoais são tratados</li>
+        <li><strong>DPO / Privacy Officer:</strong> responsável por compliance de privacidade; ponto de contato com autoridade</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Estados dos Dados & Controles</h3>
+      <div class="tscroll"><table>
+        <tr><th>Estado</th><th>Definição</th><th>Controles Técnicos</th></tr>
+        <tr><td>Data at Rest</td><td>Armazenado: disco, DB, backup, arquivo, tape</td><td>AES-256, TDE, FDE (BitLocker/FileVault), database encryption, tokenization</td></tr>
+        <tr><td>Data in Transit</td><td>Trafegando em rede — local, WAN, internet</td><td>TLS 1.3, IPSec, VPN, SFTP, HTTPS, SMTPS, MACsec</td></tr>
+        <tr><td>Data in Use</td><td>Em memória RAM ou sendo processado ativamente</td><td>Secure Enclave (SGX/TrustZone), DLP agent, ACL, processo isolado</td></tr>
+      </table></div>
+      <div class="divider"></div>
+      <div class="slabel">Ciclo de Vida do Dado</div>
+      <ul class="dl">
+        <li><strong>Create:</strong> dado originado — classificar imediatamente</li>
+        <li><strong>Store:</strong> armazenar com controles adequados à classificação</li>
+        <li><strong>Use:</strong> processar com least privilege e DLP</li>
+        <li><strong>Share:</strong> compartilhar com controles de acesso e DRM</li>
+        <li><strong>Archive:</strong> retenção de longo prazo; manter classificação e integridade</li>
+        <li><strong>Destroy:</strong> destruição segura ao fim da retenção</li>
+      </ul>
+    </div>
+    <div class="card a3">
+      <h3>Destruição Segura de Dados</h3>
+      <div class="tscroll"><table>
+        <tr><th>Método</th><th>Segurança</th><th>Reutiliza Mídia</th><th>Adequado para</th></tr>
+        <tr><td>Erasing / Deleting</td><td>❌ Mínima</td><td>Sim</td><td>Dados não sensíveis</td></tr>
+        <tr><td>Overwriting (Clearing)</td><td>Média — NIST 800-88</td><td>Sim</td><td>HDD; múltiplas passagens</td></tr>
+        <tr><td>Purging / Sanitization</td><td>Alta</td><td>Sim (exceto degauss)</td><td>Reutilização em ambiente menor classificação</td></tr>
+        <tr><td>Degaussing</td><td>Alta (magnético apenas)</td><td>Não</td><td>HDD magnético; não funciona em SSD/flash</td></tr>
+        <tr><td>Cryptographic Erasure</td><td>Alta</td><td>Sim</td><td>Cloud, SSD, self-encrypting drives</td></tr>
+        <tr><td>Physical Destruction</td><td>Máxima</td><td>Não</td><td>Dados Top Secret; mídias de alta sensibilidade</td></tr>
+        <tr><td>Shredding</td><td>Máxima</td><td>Não</td><td>Paper, HDD (shredder de mídia certificado)</td></tr>
+        <tr><td>Incineration</td><td>Máxima</td><td>Não</td><td>Mídias físicas classificadas</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Privacidade — Princípios GDPR/LGPD</h3>
+      <ul class="dl">
+        <li><strong>Lawful Basis:</strong> consentimento, contrato, obrigação legal, interesse vital, interesse público, interesse legítimo</li>
+        <li><strong>Data Minimization:</strong> coletar apenas o estritamente necessário</li>
+        <li><strong>Purpose Limitation:</strong> usar dados só para finalidade declarada na coleta</li>
+        <li><strong>Storage Limitation:</strong> reter apenas pelo tempo necessário; política de retenção</li>
+        <li><strong>Accuracy:</strong> manter dados exatos e atualizados</li>
+        <li><strong>Integrity &amp; Confidentiality:</strong> segurança técnica e organizacional adequada</li>
+        <li><strong>Accountability:</strong> controller deve demonstrar compliance</li>
+        <li><strong>Privacy by Design:</strong> privacidade desde a concepção — PbD (Ann Cavoukian)</li>
+        <li><strong>Privacy by Default:</strong> configuração padrão mais privativa</li>
+        <li><strong>Data Portability:</strong> titular recebe dados em formato estruturado</li>
+        <li><strong>Right to Erasure:</strong> "direito ao esquecimento" — com exceções</li>
+        <li><strong>Breach Notification:</strong> GDPR: 72h à autoridade; LGPD: prazo razoável à ANPD</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>Scoping, Tailoring & Baseline</h3>
+      <ul class="dl">
+        <li><strong>Scoping:</strong> identificar quais controles do baseline se aplicam ao sistema/ambiente específico</li>
+        <li><strong>Tailoring:</strong> adaptar controles selecionados às condições específicas da organização (compensating controls)</li>
+        <li><strong>Supplementation:</strong> adicionar controles além do baseline quando o risco exige</li>
+        <li><strong>Baseline:</strong> conjunto mínimo de controles para um tipo de sistema (ex: servidor web, workstation, mobile)</li>
+        <li><strong>CIS Benchmarks:</strong> baselines técnicas por SO, aplicação, cloud — levels 1 e 2</li>
+        <li><strong>DISA STIG:</strong> Security Technical Implementation Guides — governo EUA; mais restritivos</li>
+        <li><strong>Compensating Control:</strong> controle alternativo quando o original não é viável (PCI DSS)</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Gerenciamento de Ativos</h3>
+      <ul class="dl">
+        <li><strong>Asset Inventory:</strong> fundamento de qualquer programa de segurança — "não pode proteger o que não conhece"</li>
+        <li><strong>CMDB:</strong> Configuration Management Database — registro de CIs e relacionamentos (ITIL)</li>
+        <li><strong>Asset Lifecycle:</strong> Acquire → Deploy → Operate → Maintain → Dispose</li>
+        <li><strong>Shadow IT:</strong> sistemas/serviços não autorizados criados por usuários — risco oculto</li>
+        <li><strong>DRM (Digital Rights Management):</strong> controle de uso de conteúdo digital (música, vídeo, docs)</li>
+        <li><strong>IRM (Information Rights Management):</strong> controle de acesso persistente a documentos</li>
+        <li><strong>Data Discovery:</strong> identificar dados sensíveis em repositórios (DLP, CSPM)</li>
+        <li><strong>Data Mapping:</strong> fluxo de dados pessoais para compliance GDPR/LGPD</li>
+        <li><strong>Legal Hold:</strong> suspende política de retenção/destruição em caso de litígio — não destruir</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">2.4 · Data Remanence & Cloud Data Sovereignty</div>
+  <div class="grid-2 mb24">
+    <div class="card a3">
+      <h3>Data Remanence</h3>
+      <ul class="dl">
+        <li><strong>Data Remanence:</strong> dados residuais que permanecem em mídia após deleção — risco de recuperação não autorizada</li>
+        <li><strong>Causa:</strong> "delete" remove apenas ponteiro no filesystem; dados físicos permanecem até sobrescrita</li>
+        <li><strong>HDD magnético:</strong> padrões magnéticos residuais — overwriting (NIST 800-88) ou degaussing necessários</li>
+        <li><strong>SSD / Flash:</strong> wear leveling e células de reserva dificultam overwriting completo — cryptographic erasure preferível</li>
+        <li><strong>RAM Remanence:</strong> dados em RAM persistem brevemente após desligamento — vetor de cold boot attack</li>
+        <li><strong>Cold Boot Attack:</strong> congelar módulos RAM → transferir para outro sistema → ler chaves criptográficas residuais</li>
+        <li><strong>Mitigação cold boot:</strong> FDE + secure boot + full-memory encryption (AMD SME / Intel TME)</li>
+        <li><strong>Object Reuse:</strong> risco de dado de usuário anterior em memória ou bloco de disco alocado a novo usuário — sistemas devem zerar antes de realocar</li>
+        <li><strong>NIST SP 800-88:</strong> guia oficial de sanitização — Clear (overwrite) · Purge (degauss/crypto erase) · Destroy (shred/incinerate)</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>Cloud Data Sovereignty & Jurisdição</h3>
+      <ul class="dl">
+        <li><strong>Data Sovereignty:</strong> dados estão sujeitos às leis do país onde estão armazenados fisicamente</li>
+        <li><strong>Data Residency:</strong> requisito regulatório de que dados permaneçam em território específico</li>
+        <li><strong>Cloud Region Selection:</strong> escolher região compatível com requisitos de residência do cliente</li>
+        <li><strong>Schrems II (2020):</strong> CJEU invalidou Privacy Shield UE-EUA — transferências requerem SCCs ou BCRs</li>
+        <li><strong>SCC (Standard Contractual Clauses):</strong> mecanismo contratual GDPR para transferência internacional lícita</li>
+        <li><strong>BCR (Binding Corporate Rules):</strong> políticas internas aprovadas pela DPA para transferência intragrupo</li>
+        <li><strong>EU-US Data Privacy Framework (2023):</strong> substituto do Privacy Shield — ainda sob contestação judicial</li>
+        <li><strong>China PIPL:</strong> Personal Information Protection Law — localização rigorosa; aprovação para cross-border</li>
+        <li><strong>CLOUD Act (EUA):</strong> permite ao governo EUA requisitar dados de empresas americanas mesmo fora dos EUA</li>
+        <li><strong>Risco multi-cloud:</strong> dado pode replicar para regiões não conformes sem controle explícito</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ D3 · SECURITY ARCHITECTURE & ENGINEERING (13%) ═══ -->
+<div class="domain-section" id="d3">
+<div class="container">
+  <div class="domain-header">
+    <div class="domain-number">03</div>
+    <div class="domain-title">
+      <h2>Security Architecture &amp; Engineering</h2>
+      <span class="pct-badge">13% DO EXAME</span>
+      <p class="domain-desc">Modelos de segurança formais, criptografia, PKI, avaliação de sistemas, hardware, virtualização, IoT/ICS e design seguro.</p>
+    </div>
+  </div>
+
+  <div class="slabel mb24">3.1 · Modelos de Segurança Formais</div>
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Modelos de Controle de Acesso Formais</h3>
+      <div class="tscroll"><table>
+        <tr><th>Modelo</th><th>Foco</th><th>Regras Principais</th></tr>
+        <tr><td>Bell-LaPadula (BLP)</td><td>Confidencialidade — gov/militar</td><td>No Read Up (Simple Security) · No Write Down (★-property)</td></tr>
+        <tr><td>Biba</td><td>Integridade — inverso do BLP</td><td>No Read Down · No Write Up</td></tr>
+        <tr><td>Clark-Wilson</td><td>Integridade comercial — transações</td><td>CDI + UDI + TP (well-formed transactions) + IVP (integrity verification procedures)</td></tr>
+        <tr><td>Brewer-Nash (Chinese Wall)</td><td>Conflito de interesse — consultorias</td><td>Usuário não acessa dados de competidores após acessar um concorrente</td></tr>
+        <tr><td>Goguen-Meseguer</td><td>Integridade — noninterference</td><td>Ações de um grupo não afetam outro; grupos completamente isolados</td></tr>
+        <tr><td>Graham-Denning</td><td>Criação/exclusão de objetos e sujeitos</td><td>8 primitivas de proteção de objetos e subjects</td></tr>
+        <tr><td>Harrison-Ruzzo-Ullman (HRU)</td><td>Access matrix formal</td><td>Tabela sujeito-objeto com direitos; decidibilidade limitada</td></tr>
+        <tr><td>Take-Grant</td><td>Propagação de direitos</td><td>Sujeitos podem tomar ou dar direitos conforme regras</td></tr>
+      </table></div>
+    </div>
+    <div class="card a2">
+      <h3>Modelos de Controle de Acesso</h3>
+      <div class="tscroll"><table>
+        <tr><th>Modelo</th><th>Base de Decisão</th><th>Uso Típico</th><th>Controle por</th></tr>
+        <tr><td>DAC</td><td>Proprietário do recurso define ACL</td><td>Windows NTFS, Linux chmod</td><td>Dono do objeto</td></tr>
+        <tr><td>MAC</td><td>Rótulos de classificação do sistema</td><td>Gov/militar; SELinux, MLS</td><td>Sistema (obrigatório)</td></tr>
+        <tr><td>RBAC</td><td>Funções/papéis atribuídos ao usuário</td><td>AD Groups, bancos, saúde</td><td>Administrador</td></tr>
+        <tr><td>ABAC / PBAC</td><td>Atributos múltiplos (usuário, recurso, ambiente)</td><td>Zero Trust, cloud IAM, XACML</td><td>Políticas dinâmicas</td></tr>
+        <tr><td>Rule-Based AC</td><td>Regras globais independentes de identidade</td><td>Firewall ACL, horário de acesso</td><td>Sistema</td></tr>
+        <tr><td>Risk-Adaptive AC (RAdAC)</td><td>Score de risco em tempo real</td><td>Sistemas dinâmicos — Zero Trust avançado</td><td>Motor de risco</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="slabel mb24">3.2 · Criptografia Completa</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Criptografia Simétrica</h3>
+      <div class="tscroll"><table>
+        <tr><th>Algoritmo</th><th>Chave</th><th>Bloco</th><th>Status</th></tr>
+        <tr><td>AES</td><td>128/192/256b</td><td>128b</td><td><span class="tag g">✓ SEGURO</span></td></tr>
+        <tr><td>ChaCha20-Poly1305</td><td>256b</td><td>Stream</td><td><span class="tag g">✓ SEGURO</span></td></tr>
+        <tr><td>3DES (TDEA)</td><td>112/168b</td><td>64b</td><td>Depreciado (NIST 2023)</td></tr>
+        <tr><td>DES</td><td>56b</td><td>64b</td><td><span class="tag r">✗ INSEGURO</span></td></tr>
+        <tr><td>Blowfish</td><td>32–448b</td><td>64b</td><td>Legacy; block 64b fraco</td></tr>
+        <tr><td>Twofish</td><td>128–256b</td><td>128b</td><td>Alternativa segura</td></tr>
+        <tr><td>RC4</td><td>40–2048b</td><td>Stream</td><td><span class="tag r">✗ INSEGURO (WEP, SSL)</span></td></tr>
+        <tr><td>RC5/RC6</td><td>Variável</td><td>32–128b</td><td>Não recomendado</td></tr>
+        <tr><td>IDEA</td><td>128b</td><td>64b</td><td>Legacy; PGP antigo</td></tr>
+      </table></div>
+      <div class="hl mt12" style="font-size:11px;"><strong>Modos:</strong> ECB (inseguro, sem IV) · CBC (IV, padding oracle) · CTR (stream, paralelo) · GCM (AEAD = cifra+autenticação) · CCM · OCB · XTS (disco)</div>
+    </div>
+    <div class="card a2">
+      <h3>Criptografia Assimétrica</h3>
+      <div class="tscroll"><table>
+        <tr><th>Algoritmo</th><th>Tamanho Mín.</th><th>Uso Principal</th></tr>
+        <tr><td>RSA</td><td>2048b (3072b recomendado)</td><td>Cifra, assinatura, key exchange — PKCS#1</td></tr>
+        <tr><td>ECC</td><td>256b ≈ RSA 3072b</td><td>TLS, mobile — menor tamanho, mais rápido</td></tr>
+        <tr><td>ECDSA</td><td>P-256 / P-384</td><td>Assinatura digital padrão atual (TLS, SSH)</td></tr>
+        <tr><td>ECDH / ECDHE</td><td>P-256</td><td>Key exchange; ECDHE = efêmero = PFS</td></tr>
+        <tr><td>DH / DHE</td><td>2048b (3072b ideal)</td><td>Key exchange; DHE = efêmero = PFS</td></tr>
+        <tr><td>DSA / DSS</td><td>2048b</td><td>Assinatura; FIPS 186-5 deprecia DSA</td></tr>
+        <tr><td>El Gamal</td><td>2048b</td><td>Cifra e assinatura; base do OpenPGP</td></tr>
+        <tr><td>Ed25519</td><td>255b</td><td>Assinatura EdDSA; SSH moderno</td></tr>
+        <tr><td>X25519</td><td>255b</td><td>Key exchange Curve25519; TLS 1.3</td></tr>
+      </table></div>
+      <div class="hl p mt12" style="font-size:11px;"><strong>PFS (Perfect Forward Secrecy):</strong> DHE / ECDHE geram chaves de sessão únicas. Comprometimento da chave privada de longo prazo NÃO expõe sessões passadas.</div>
+    </div>
+    <div class="card a4">
+      <h3>Hashing & Funções de Derivação</h3>
+      <div class="tscroll"><table>
+        <tr><th>Algoritmo</th><th>Output</th><th>Status</th></tr>
+        <tr><td>MD5</td><td>128b</td><td><span class="tag r">✗ INSEGURO — colisão</span></td></tr>
+        <tr><td>SHA-1</td><td>160b</td><td><span class="tag r">✗ INSEGURO — SHAttered</span></td></tr>
+        <tr><td>SHA-256 (SHA-2)</td><td>256b</td><td><span class="tag g">✓ SEGURO</span></td></tr>
+        <tr><td>SHA-384</td><td>384b</td><td><span class="tag g">✓ SEGURO</span></td></tr>
+        <tr><td>SHA-512</td><td>512b</td><td><span class="tag g">✓ SEGURO</span></td></tr>
+        <tr><td>SHA-3 (Keccak)</td><td>224–512b</td><td><span class="tag g">✓ SEGURO — estrutura diferente SHA-2</span></td></tr>
+        <tr><td>BLAKE2 / BLAKE3</td><td>Variável</td><td><span class="tag g">✓ SEGURO — rápido</span></td></tr>
+        <tr><td>HMAC</td><td>Depende do hash</td><td>Hash + chave secreta = autenticação de mensagem</td></tr>
+        <tr><td>bcrypt</td><td>60 chars</td><td>Password hashing; work factor ajustável</td></tr>
+        <tr><td>scrypt</td><td>Variável</td><td>Memory-hard; KDF</td></tr>
+        <tr><td>Argon2id</td><td>Variável</td><td>Winner PHC 2015; preferido para senha</td></tr>
+        <tr><td>PBKDF2</td><td>Variável</td><td>Key derivation; N iterações; FIPS aprovado</td></tr>
+        <tr><td>HKDF</td><td>Variável</td><td>Key derivation de material existente (TLS 1.3)</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>PKI — Public Key Infrastructure</h3>
+      <div class="tscroll"><table>
+        <tr><th>Componente</th><th>Função</th></tr>
+        <tr><td>Root CA</td><td>Âncora de confiança; auto-assinado; OFFLINE em HSM — nunca conectado à rede</td></tr>
+        <tr><td>Intermediate CA</td><td>Subordinada ao Root; emite certs end-entity; online; compromisso não afeta Root</td></tr>
+        <tr><td>RA (Registration Authority)</td><td>Valida identidade do solicitante; encaminha CSR à CA</td></tr>
+        <tr><td>CRL</td><td>Certificate Revocation List — lista periódica de certs revogados; pode ser stale</td></tr>
+        <tr><td>OCSP</td><td>Online Certificate Status Protocol — consulta em tempo real; porta 80</td></tr>
+        <tr><td>OCSP Stapling</td><td>Servidor pré-busca e anexa resposta OCSP no TLS handshake — reduz latência</td></tr>
+        <tr><td>X.509 v3</td><td>Padrão internacional para certificados digitais</td></tr>
+        <tr><td>CSR</td><td>Certificate Signing Request — contém chave pública + info do solicitante</td></tr>
+        <tr><td>Certificate Pinning</td><td>App força cert/chave pública específica — evita MitM com CA rogue</td></tr>
+        <tr><td>CT Log</td><td>Certificate Transparency — log público imutável de todos os certs emitidos</td></tr>
+        <tr><td>Cross-Certification</td><td>Duas CAs confiam uma na outra mutuamente; federação de PKI</td></tr>
+        <tr><td>Bridge CA</td><td>CA central que interconecta múltiplas hierarquias de PKI</td></tr>
+      </table></div>
+      <div class="hl mt12" style="font-size:11px;"><strong>Tipos de Certificado:</strong> DV (Domain Validation) · OV (Organization Validation) · EV (Extended Validation) · Wildcard (*.domain.com) · SAN (Subject Alternative Name — múltiplos domínios)</div>
+    </div>
+    <div class="card a3">
+      <h3>Ataques Criptográficos</h3>
+      <div class="tscroll"><table>
+        <tr><th>Ataque</th><th>Descrição</th><th>Mitigação</th></tr>
+        <tr><td>Birthday</td><td>Colisão de hash — dois inputs = mesmo hash</td><td>SHA-256+; output ≥256b</td></tr>
+        <tr><td>Brute Force</td><td>Testa todas as combinações possíveis</td><td>Chave longa; rate limiting</td></tr>
+        <tr><td>Dictionary</td><td>Wordlist de senhas comuns</td><td>Salt; Argon2id; MFA</td></tr>
+        <tr><td>Rainbow Table</td><td>Hash pré-computado; busca reversa</td><td>Salt único por senha</td></tr>
+        <tr><td>Meet-in-the-Middle</td><td>Ataca 2DES efetivamente — por isso 3DES</td><td>Usar AES; ≥128b</td></tr>
+        <tr><td>Padding Oracle (POODLE)</td><td>CBC mode; vazamento via erro de padding</td><td>TLS 1.3; GCM mode</td></tr>
+        <tr><td>BEAST</td><td>TLS 1.0 CBC chosen-plaintext</td><td>TLS 1.2+; RC4 não é opção</td></tr>
+        <tr><td>DROWN</td><td>SSLv2 afeta servidores TLS modernos</td><td>Desabilitar SSLv2/3 completamente</td></tr>
+        <tr><td>CRIME/BREACH</td><td>Compressão + cifra vaza info do cabeçalho</td><td>Desabilitar compressão TLS</td></tr>
+        <tr><td>Downgrade (Logjam)</td><td>Força protocolo/cipher fraco</td><td>Configuração de cipher suite restrita</td></tr>
+        <tr><td>Harvest-now, Decrypt-later</td><td>Armazena dados cifrados p/ decifrar com computador quântico</td><td>PQC; migração antecipada</td></tr>
+        <tr><td>Quantum (Shor's Alg)</td><td>Quebra RSA/ECC — inteiros e logaritmos discretos</td><td>Post-Quantum Cryptography (PQC)</td></tr>
+      </table></div>
+      <div class="hl mt12 p" style="font-size:11px;"><strong>PQC (NIST FIPS 2024):</strong> CRYSTALS-Kyber (ML-KEM) — KEM · CRYSTALS-Dilithium (ML-DSA) — assinatura · SPHINCS+ (SLH-DSA) — hash-based · FALCON (FN-DSA) — assinatura</div>
+    </div>
+  </div>
+
+  <div class="slabel mb24">3.3 · Hardware, Virtualização & IoT/ICS</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Segurança de Hardware</h3>
+      <ul class="dl">
+        <li><strong>TPM (Trusted Platform Module):</strong> chip dedicado para chaves criptográficas, PCR, Secure Boot; padrão TPM 2.0</li>
+        <li><strong>HSM (Hardware Security Module):</strong> dispositivo de alta segurança para geração/armazenamento de chaves; FIPS 140-3 L3+</li>
+        <li><strong>Secure Boot:</strong> verifica assinatura do bootloader — UEFI; impede bootkits</li>
+        <li><strong>Measured Boot:</strong> registra hashes de cada componente de boot no TPM — log de integridade</li>
+        <li><strong>UEFI:</strong> substitui BIOS; Secure Boot, network boot, GPT, variáveis protegidas</li>
+        <li><strong>TEE (Trusted Execution Environment):</strong> ARM TrustZone (mobile), Intel SGX (cloud) — processamento isolado</li>
+        <li><strong>TEMPEST:</strong> emanações eletromagnéticas que podem ser interceptadas — Faraday cage como proteção</li>
+        <li><strong>Side-Channel Attacks:</strong> Spectre, Meltdown (cache timing), Rowhammer (DRAM), timing, power analysis</li>
+        <li><strong>Supply Chain HW:</strong> chips falsificados, backdoors de fabricação — Trusted Foundry Program</li>
+        <li><strong>Self-Encrypting Drive (SED):</strong> HDD/SSD com criptografia em hardware — ATA Security, Opal 2.0</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>Virtualização & Cloud</h3>
+      <ul class="dl">
+        <li><strong>Type 1 Hypervisor (bare-metal):</strong> VMware ESXi, Microsoft Hyper-V, KVM — diretamente no hardware</li>
+        <li><strong>Type 2 Hypervisor (hosted):</strong> VirtualBox, VMware Workstation — sobre SO host</li>
+        <li><strong>VM Escape:</strong> guest acessa host — vulnerabilidade crítica; exemplo: VENOM, CVE em QEMU</li>
+        <li><strong>VM Sprawl:</strong> VMs descontroladas; patches ausentes; aumenta superfície de ataque</li>
+        <li><strong>Snapshot Attacks:</strong> snapshot captura estado incluindo chaves em memória</li>
+        <li><strong>Container (Docker/Kubernetes):</strong> compartilha kernel do host — isolamento menor que VM</li>
+        <li><strong>Container Escape:</strong> breakout do namespace — runc CVEs, privileged containers</li>
+        <li><strong>Serverless (FaaS):</strong> AWS Lambda, Azure Functions; sem gestão de infra; risco: supply chain, cold start</li>
+        <li><strong>CASB:</strong> Cloud Access Security Broker — visibilidade, compliance, DLP para cloud</li>
+        <li><strong>CSPM:</strong> Cloud Security Posture Management — detecta misconfig em cloud</li>
+        <li><strong>CWPP:</strong> Cloud Workload Protection Platform — proteção de workloads cloud</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>IoT, OT / ICS / SCADA</h3>
+      <ul class="dl">
+        <li><strong>IoT Riscos:</strong> credenciais padrão, firmware desatualizado, sem criptografia, sem patch management</li>
+        <li><strong>ICS/SCADA:</strong> sistemas de controle industrial — refinarias, energia, água, manufatura</li>
+        <li><strong>OT (Operational Technology):</strong> hardware/software que controla processos físicos</li>
+        <li><strong>PLC (Programmable Logic Controller):</strong> controlador industrial; alvo de Stuxnet</li>
+        <li><strong>RTU (Remote Terminal Unit):</strong> monitora sensores remotos em SCADA</li>
+        <li><strong>HMI (Human-Machine Interface):</strong> interface operador-máquina — vetor de ataque</li>
+        <li><strong>Purdue Model / ISA-99:</strong> modelo de referência para segmentação de rede ICS (níveis 0–4)</li>
+        <li><strong>Air Gap:</strong> isolamento físico de rede — gold standard para sistemas críticos</li>
+        <li><strong>Data Diode:</strong> comunicação unidirecional hardware — garante air gap com telemetria</li>
+        <li><strong>IEC 62443:</strong> padrão de segurança para sistemas de automação industrial</li>
+        <li><strong>Convergência IT/OT:</strong> integração aumenta conectividade e superfície de ataque</li>
+        <li><strong>Embedded Systems:</strong> firmware, RTOS — difícil atualização; longa vida útil</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">3.4 · Modelos de Arquitetura & Critérios de Avaliação</div>
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Frameworks de Arquitetura</h3>
+      <div class="tscroll"><table>
+        <tr><th>Framework</th><th>Descrição</th></tr>
+        <tr><td>Zachman</td><td>Grid 6×6: What/How/Where/Who/When/Why × Exec/Business/Architect/Designer/Builder/Worker</td></tr>
+        <tr><td>TOGAF 10</td><td>ADM (Architecture Development Method); Business, Data, Application, Technology layers</td></tr>
+        <tr><td>SABSA</td><td>Sherwood Applied Business Security Architecture; risk-driven; 6 camadas; atributos de segurança em cada layer</td></tr>
+        <tr><td>IATF (NSA)</td><td>Information Assurance Technical Framework; Defense in Depth; People, Operations, Technology</td></tr>
+        <tr><td>DoDAF</td><td>Department of Defense Architecture Framework — sistemas militares e governamentais</td></tr>
+        <tr><td>FEAF</td><td>Federal Enterprise Architecture Framework — governo federal EUA</td></tr>
+      </table></div>
+    </div>
+    <div class="card a2">
+      <h3>Critérios de Avaliação de Segurança</h3>
+      <div class="tscroll"><table>
+        <tr><th>Padrão</th><th>Níveis</th><th>Descrição</th></tr>
+        <tr><td>Common Criteria (ISO 15408)</td><td>EAL 1–7</td><td>Padrão internacional para avaliação de produtos de segurança; TOE, PP, ST</td></tr>
+        <tr><td>TCSEC (Orange Book)</td><td>D, C1, C2, B1, B2, B3, A1</td><td>Padrão legado DoD (depreciado por Common Criteria)</td></tr>
+        <tr><td>ITSEC</td><td>E0–E6</td><td>Equivalente europeu ao TCSEC — também substituído por CC</td></tr>
+        <tr><td>FIPS 140-3</td><td>Level 1–4</td><td>Módulos criptográficos; obrigatório para sistemas federais EUA e Canada</td></tr>
+      </table></div>
+      <div class="hl p mt12" style="font-size:11px;"><strong>Common Criteria:</strong> TOE (Target of Evaluation) · PP (Protection Profile — requisitos de segurança para categoria) · ST (Security Target — claims do vendor) · EAL (Evaluation Assurance Level — rigor do processo de avaliação)</div>
+      <div class="divider"></div>
+      <div class="slabel">Conceitos de Trusted Computing</div>
+      <ul class="dl">
+        <li><strong>TCB (Trusted Computing Base):</strong> hardware + software + firmware que implementa políticas de segurança do sistema</li>
+        <li><strong>Reference Monitor:</strong> mecanismo abstrato que media todo acesso — deve ser: completo, isolado, verificável</li>
+        <li><strong>Security Kernel:</strong> implementação do Reference Monitor no TCB</li>
+        <li><strong>Trusted Path:</strong> canal seguro entre usuário e TCB — evita interceção</li>
+        <li><strong>Covert Channel:</strong> comunicação não autorizada via recursos compartilhados (storage covert channel, timing covert channel)</li>
+        <li><strong>Open System:</strong> padrões abertos, interoperável — maior superfície de ataque</li>
+        <li><strong>Closed System:</strong> proprietário — menor interoperabilidade, menor superfície</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">3.5 · Steganography & Outros Conceitos</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Steganography</h3>
+      <ul class="dl">
+        <li><strong>Definição:</strong> técnica de ocultar dados dentro de outro arquivo (imagem, áudio, vídeo, texto) sem que seja detectável</li>
+        <li><strong>LSB (Least Significant Bit):</strong> método mais comum — altera bits menos significativos de pixels</li>
+        <li><strong>Watermarking:</strong> versão de steganografia para prova de autoria (overt ou covert)</li>
+        <li><strong>Digital Watermark:</strong> ID único embutido em documento — rastreia vazamento</li>
+        <li><strong>Steganalysis:</strong> detecção de steganography — análise estatística de arquivos</li>
+        <li><strong>Uso malicioso:</strong> exfiltração de dados em imagens; C2 oculto em tráfego HTTP</li>
+        <li><strong>Security through Obscurity:</strong> esconder implementação NÃO é controle de segurança válido</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>Criptografia de Dispositivos Móveis</h3>
+      <ul class="dl">
+        <li><strong>MDM (Mobile Device Management):</strong> gestão centralizada de dispositivos; enforce policies, remote wipe</li>
+        <li><strong>MAM (Mobile Application Management):</strong> gestão de apps específicos — containerization</li>
+        <li><strong>EMM (Enterprise Mobility Management):</strong> MDM + MAM + MCM</li>
+        <li><strong>BYOD:</strong> Bring Your Own Device — maior risco; requer política clara e containerization</li>
+        <li><strong>COPE:</strong> Corporate Owned, Personally Enabled — empresa controla o dispositivo</li>
+        <li><strong>CYOD:</strong> Choose Your Own Device — lista aprovada de dispositivos pessoais</li>
+        <li><strong>Full Device Encryption:</strong> iOS (padrão), Android (padrão) — protege data at rest</li>
+        <li><strong>Remote Wipe:</strong> apagamento remoto em caso de perda/roubo</li>
+        <li><strong>Jailbreak/Root:</strong> bypassa controles de segurança do SO — viola política BYOD</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Shared Responsibility Model</h3>
+      <div class="tscroll"><table>
+        <tr><th>Camada</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr>
+        <tr><td>Dados</td><td>Cliente</td><td>Cliente</td><td>Compartilhado</td></tr>
+        <tr><td>Aplicação</td><td>Cliente</td><td>Cliente</td><td>Provider</td></tr>
+        <tr><td>Runtime</td><td>Cliente</td><td>Provider</td><td>Provider</td></tr>
+        <tr><td>Middleware</td><td>Cliente</td><td>Provider</td><td>Provider</td></tr>
+        <tr><td>SO</td><td>Cliente</td><td>Provider</td><td>Provider</td></tr>
+        <tr><td>Virtualização</td><td>Provider</td><td>Provider</td><td>Provider</td></tr>
+        <tr><td>Hardware</td><td>Provider</td><td>Provider</td><td>Provider</td></tr>
+        <tr><td>Instalações</td><td>Provider</td><td>Provider</td><td>Provider</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="slabel mb24">3.6 · Fault Tolerance, RAID & Distributed Systems</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>RAID — Redundant Array of Independent Disks</h3>
+      <div class="tscroll"><table>
+        <tr><th>RAID</th><th>Nome</th><th>Min. Discos</th><th>Protege contra</th><th>Performance</th></tr>
+        <tr><td>RAID 0</td><td>Striping</td><td>2</td><td>Nada — sem redundância</td><td>↑↑ Leitura/Escrita</td></tr>
+        <tr><td>RAID 1</td><td>Mirroring</td><td>2</td><td>Falha de 1 disco</td><td>↑ Leitura</td></tr>
+        <tr><td>RAID 5</td><td>Striping + Paridade</td><td>3</td><td>Falha de 1 disco</td><td>↑ Leitura; ↓ Escrita</td></tr>
+        <tr><td>RAID 6</td><td>Striping + Paridade dupla</td><td>4</td><td>Falha de 2 discos</td><td>↑ Leitura; ↓↓ Escrita</td></tr>
+        <tr><td>RAID 10</td><td>Mirroring + Striping</td><td>4</td><td>Múltiplas falhas (por mirror)</td><td>↑↑ Leitura/Escrita</td></tr>
+      </table></div>
+      <div class="hl mt12 r" style="font-size:11px;"><strong>RAID ≠ Backup!</strong> RAID protege contra falha de hardware; não protege contra deleção acidental, ransomware ou corrupção lógica.</div>
+    </div>
+    <div class="card a2">
+      <h3>Fault Tolerance & Alta Disponibilidade</h3>
+      <ul class="dl">
+        <li><strong>Fault Tolerance:</strong> sistema continua operando mesmo com falha de componente</li>
+        <li><strong>High Availability (HA):</strong> minimiza downtime — SLA 99,9% = 8,7h/ano; 99,99% = 52min/ano; 99,999% = 5,2min/ano</li>
+        <li><strong>Active-Active Clustering:</strong> múltiplos nós processando simultaneamente — balanceamento de carga</li>
+        <li><strong>Active-Passive Clustering:</strong> nó passivo assume em caso de falha do ativo — failover</li>
+        <li><strong>Load Balancing:</strong> distribui tráfego entre múltiplos servidores — round-robin, least-connections, IP hash</li>
+        <li><strong>Heartbeat:</strong> sinal periódico entre nós do cluster — ausência indica falha</li>
+        <li><strong>SPOF (Single Point of Failure):</strong> componente cuja falha derruba todo o sistema — identificar e eliminar</li>
+        <li><strong>Geographic Redundancy:</strong> múltiplos data centers em regiões distintas — proteção contra desastre regional</li>
+        <li><strong>UPS + Generator + Dual Feed:</strong> três camadas de continuidade de energia elétrica</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Distributed Systems & Database Security</h3>
+      <ul class="dl">
+        <li><strong>Distributed Systems:</strong> múltiplos nós colaboram — maior complexidade de controle de acesso e consistência</li>
+        <li><strong>CAP Theorem:</strong> Consistency, Availability, Partition Tolerance — sistemas distribuídos só garantem 2 dos 3</li>
+        <li><strong>Blockchain:</strong> ledger distribuído imutável; consenso (PoW, PoS); smart contracts; integridade sem autoridade central</li>
+        <li><strong>Smart Contract Risk:</strong> código imutável com bugs — reentrancy attacks (DAO hack)</li>
+        <li><strong>Edge Computing:</strong> processamento próximo à fonte de dado — menor latência; maior superfície de ataque distribuída</li>
+        <li><strong>BD Relacional (SQL):</strong> ACID (Atomicity, Consistency, Isolation, Durability); estruturado; SQL injection risk</li>
+        <li><strong>BD NoSQL:</strong> MongoDB, Cassandra, Redis — flexível; NoSQL injection; menor garantia ACID</li>
+        <li><strong>BD NewSQL:</strong> ACID + escalabilidade horizontal — CockroachDB, Google Spanner</li>
+        <li><strong>Data Warehouse:</strong> OLAP — análise histórica; separação de OLTP; proteção de dados analíticos</li>
+        <li><strong>Grid Computing:</strong> poder computacional compartilhado — controle de acesso e integridade de tarefas críticos</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ D4 · COMMUNICATION & NETWORK SECURITY (13%) ═══ -->
+<div class="domain-section" id="d4">
+<div class="container">
+  <div class="domain-header">
+    <div class="domain-number">04</div>
+    <div class="domain-title">
+      <h2>Communication &amp; Network Security</h2>
+      <span class="pct-badge">13% DO EXAME</span>
+      <p class="domain-desc">Modelos OSI/TCP-IP, protocolos seguros, firewalls, VPN, wireless, ataques de rede, SD-WAN, SASE e Zero Trust Network.</p>
+    </div>
+  </div>
+
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Modelo OSI — 7 Camadas</h3>
+      <div class="tscroll"><table>
+        <tr><th>#</th><th>Camada</th><th>PDU</th><th>Protocolos</th><th>Ataques / Dispositivos</th></tr>
+        <tr><td>7</td><td>Application</td><td>Data</td><td>HTTP, DNS, SMTP, FTP, LDAP, SNMP, Kerberos</td><td>XSS, SQLi, phishing / Proxy, WAF</td></tr>
+        <tr><td>6</td><td>Presentation</td><td>Data</td><td>SSL/TLS, MIME, ASCII, JPEG, MPEG</td><td>SSL stripping, encoding attacks</td></tr>
+        <tr><td>5</td><td>Session</td><td>Data</td><td>NetBIOS, RPC, SOCKS, SIP, H.323</td><td>Session hijacking, replay</td></tr>
+        <tr><td>4</td><td>Transport</td><td>Segment</td><td>TCP, UDP, TLS (opera aqui no stack)</td><td>SYN flood, port scan / FW stateful</td></tr>
+        <tr><td>3</td><td>Network</td><td>Packet</td><td>IP, ICMP, OSPF, BGP, IGMP</td><td>IP spoofing, DoS, routing attack / Router, FW stateless</td></tr>
+        <tr><td>2</td><td>Data Link</td><td>Frame</td><td>Ethernet, ARP, 802.11, PPP, VLAN (802.1Q)</td><td>ARP spoofing, VLAN hopping / Switch, Bridge</td></tr>
+        <tr><td>1</td><td>Physical</td><td>Bit</td><td>Cabos, fibra, coaxial, Wi-Fi (sinal)</td><td>Sniffing, jamming, eavesdropping / Hub, Repeater</td></tr>
+      </table></div>
+    </div>
+    <div class="card a2">
+      <h3>Protocolos de Rede — Seguros vs. Inseguros</h3>
+      <div class="tscroll"><table>
+        <tr><th>Inseguro</th><th>Porta</th><th>Substituto Seguro</th><th>Porta</th></tr>
+        <tr><td>Telnet</td><td>23</td><td>SSH v2</td><td>22</td></tr>
+        <tr><td>FTP</td><td>20/21</td><td>SFTP (FTP sobre SSH) ou FTPS (FTP sobre TLS)</td><td>22 / 990</td></tr>
+        <tr><td>HTTP</td><td>80</td><td>HTTPS (HTTP sobre TLS)</td><td>443</td></tr>
+        <tr><td>SMTP</td><td>25</td><td>SMTPS / SMTP+STARTTLS</td><td>465 / 587</td></tr>
+        <tr><td>POP3</td><td>110</td><td>POP3S</td><td>995</td></tr>
+        <tr><td>IMAP</td><td>143</td><td>IMAPS</td><td>993</td></tr>
+        <tr><td>LDAP</td><td>389</td><td>LDAPS</td><td>636</td></tr>
+        <tr><td>SNMPv1/v2</td><td>161</td><td>SNMPv3 (autenticação + cifra)</td><td>161/162</td></tr>
+        <tr><td>DNS (sem proteção)</td><td>53</td><td>DNSSEC + DoH (443) ou DoT (853)</td><td>53/443/853</td></tr>
+        <tr><td>RDP (sem MFA)</td><td>3389</td><td>RDP + MFA + NLA + VPN</td><td>3389</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Firewalls — Tipos & Características</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Camada OSI</th><th>Características</th></tr>
+        <tr><td>Packet Filter</td><td>3/4</td><td>Stateless; ACL por IP/porta; sem contexto de sessão; rápido</td></tr>
+        <tr><td>Stateful Inspection</td><td>3/4</td><td>Rastreia estado TCP; mais seguro que packet filter; padrão moderno</td></tr>
+        <tr><td>Application Proxy (Gateway)</td><td>7</td><td>Intermediário completo; inspeciona conteúdo; mais lento; alta segurança</td></tr>
+        <tr><td>Circuit-Level Proxy</td><td>5</td><td>Sessão TCP; SOCKS; não inspeciona payload; mascara IP interno</td></tr>
+        <tr><td>NGFW (Next-Gen)</td><td>7</td><td>DPI, IPS inline, SSL inspection, App-ID, User-ID, threat intelligence</td></tr>
+        <tr><td>WAF</td><td>7</td><td>HTTP/HTTPS específico; protege contra OWASP Top 10; virtual patching</td></tr>
+        <tr><td>UTM</td><td>Multi</td><td>All-in-one: FW + AV + IPS + proxy + VPN; ideal para SMB</td></tr>
+      </table></div>
+    </div>
+    <div class="card a3">
+      <h3>IDS / IPS</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Posição</th><th>Ação</th></tr>
+        <tr><td>NIDS</td><td>Network — em linha ou tap</td><td>Apenas detecta — alerta</td></tr>
+        <tr><td>NIPS</td><td>Network — em linha (inline)</td><td>Detecta e bloqueia ativamente</td></tr>
+        <tr><td>HIDS</td><td>Host — agente no endpoint</td><td>Detecta no host — FIM, log analysis</td></tr>
+        <tr><td>HIPS</td><td>Host — agente no endpoint</td><td>Bloqueia no host</td></tr>
+      </table></div>
+      <div class="divider"></div>
+      <div class="slabel">Métodos de Detecção</div>
+      <div class="tscroll"><table>
+        <tr><th>Método</th><th>Base</th><th>False Positive</th><th>Zero-day</th></tr>
+        <tr><td>Signature-based</td><td>Assinaturas conhecidas</td><td>Baixo</td><td>Não detecta</td></tr>
+        <tr><td>Anomaly-based</td><td>Desvio do baseline</td><td>Alto</td><td>Detecta</td></tr>
+        <tr><td>Behavior-based</td><td>Padrão de comportamento</td><td>Médio</td><td>Parcial</td></tr>
+        <tr><td>Heuristic</td><td>Regras e ML</td><td>Médio</td><td>Parcial</td></tr>
+      </table></div>
+    </div>
+    <div class="card a4">
+      <h3>IPSec — Completo</h3>
+      <div class="tscroll"><table>
+        <tr><th>Protocolo</th><th>Função</th><th>IP Proto</th></tr>
+        <tr><td>AH (Authentication Header)</td><td>Integridade + autenticação; sem cifra; inclui IP header</td><td>51</td></tr>
+        <tr><td>ESP (Encapsulating Security Payload)</td><td>Cifra + integridade + autenticação; não protege IP externo</td><td>50</td></tr>
+      </table></div>
+      <div class="tscroll mt12"><table>
+        <tr><th>Modo</th><th>Protege</th><th>Uso</th></tr>
+        <tr><td>Transport</td><td>Payload IP — header original mantido</td><td>Host-to-host</td></tr>
+        <tr><td>Tunnel</td><td>Pacote IP inteiro — novo header IP adicionado</td><td>Site-to-site VPN (gateway-to-gateway)</td></tr>
+      </table></div>
+      <div class="divider"></div>
+      <ul class="dl">
+        <li><strong>SA (Security Association):</strong> contrato unidirecional de parâmetros IPSec</li>
+        <li><strong>SAD (SA Database):</strong> lista de SAs ativas</li>
+        <li><strong>SPD (Security Policy Database):</strong> define quais tráfegos usam IPSec</li>
+        <li><strong>IKEv1:</strong> Fase 1 (Main/Aggressive Mode) + Fase 2 (Quick Mode)</li>
+        <li><strong>IKEv2:</strong> mais simples, rápido, suporta MOBIKE (roaming)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Wireless Security</h3>
+      <div class="tscroll"><table>
+        <tr><th>Protocolo</th><th>Cifra</th><th>Auth</th><th>Status</th></tr>
+        <tr><td>WEP</td><td>RC4 (40/104b)</td><td>Pre-shared</td><td><span class="tag r">✗ INSEGURO — aircrack</span></td></tr>
+        <tr><td>WPA (TKIP)</td><td>RC4 + TKIP</td><td>PSK / 802.1X</td><td><span class="tag r">✗ INSEGURO</span></td></tr>
+        <tr><td>WPA2-Personal</td><td>AES-CCMP</td><td>PSK (senha)</td><td>Aceitável; vulnerável a KRACK</td></tr>
+        <tr><td>WPA2-Enterprise</td><td>AES-CCMP</td><td>802.1X + EAP</td><td><span class="tag g">✓ SEGURO</span></td></tr>
+        <tr><td>WPA3-Personal</td><td>AES + SAE</td><td>SAE (Dragonfly)</td><td><span class="tag g">✓ SEGURO — forward secrecy</span></td></tr>
+        <tr><td>WPA3-Enterprise</td><td>AES-256 GCM</td><td>802.1X + EAP-TLS</td><td><span class="tag g">✓ SEGURO — máximo</span></td></tr>
+      </table></div>
+      <div class="hl mt12" style="font-size:11px;"><strong>802.1X:</strong> framework de autenticação em porta de rede (switch e AP). Componentes: Supplicant (cliente) · Authenticator (switch/AP) · Authentication Server (RADIUS)</div>
+    </div>
+    <div class="card a2">
+      <h3>Ataques de Rede — Completo</h3>
+      <ul class="dl">
+        <li><strong>SYN Flood:</strong> esgota half-open connections; mitigação: SYN cookies, rate limiting</li>
+        <li><strong>Smurf:</strong> ICMP broadcast com IP spoofado da vítima — amplificação</li>
+        <li><strong>Amplification DDoS:</strong> DNS/NTP/SSDP/Memcached usados como amplificadores; fator 10–51000x</li>
+        <li><strong>MitM:</strong> ARP Spoofing, BGP hijacking, SSL stripping, DHCP spoofing</li>
+        <li><strong>Replay Attack:</strong> captura e reenvia token/ticket autenticado; mitigação: nonce, timestamp</li>
+        <li><strong>Session Hijack:</strong> roubo de cookie/session token; mitigação: HTTPS, HttpOnly, SameSite</li>
+        <li><strong>ARP Spoofing:</strong> associa IP legítimo ao MAC do atacante; mitigação: Dynamic ARP Inspection (DAI)</li>
+        <li><strong>VLAN Hopping:</strong> switch spoofing ou double tagging 802.1Q; mitigação: desabilitar DTP, nativo VLAN</li>
+        <li><strong>DNS Poisoning:</strong> registros falsos no cache DNS; mitigação: DNSSEC</li>
+        <li><strong>BGP Hijacking:</strong> anuncia prefixos IP ilegítimos; mitigação: RPKI (Route Origin Validation)</li>
+        <li><strong>MAC Flooding:</strong> esgota tabela CAM do switch → modo hub; mitigação: port security</li>
+        <li><strong>DHCP Starvation + Rogue DHCP:</strong> exaure pool + oferece IP próprio como gateway</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>VPN, SD-WAN & SASE</h3>
+      <ul class="dl">
+        <li><strong>IPSec VPN:</strong> padrão para site-to-site; nativo no IPv6</li>
+        <li><strong>SSL/TLS VPN:</strong> clientless via browser; L7; fácil deploy; Cisco AnyConnect, Palo Alto GlobalProtect</li>
+        <li><strong>OpenVPN:</strong> open-source; SSL/TLS; flexível; porta configurável</li>
+        <li><strong>WireGuard:</strong> moderno, rápido, ~4000 linhas de código; ChaCha20-Poly1305</li>
+        <li><strong>L2TP/IPSec:</strong> L2TP encapsula PPP + IPSec cifra — Windows nativo</li>
+        <li><strong>Split Tunneling:</strong> apenas tráfego corporativo vai pela VPN; risco de lateral movement</li>
+        <li><strong>Full Tunneling:</strong> todo tráfego passa pela VPN corporativa; maior controle</li>
+        <li><strong>SD-WAN:</strong> Software-Defined WAN; gerenciamento centralizado de múltiplos links WAN; abstrai hardware</li>
+        <li><strong>SASE (Gartner):</strong> Secure Access Service Edge — SD-WAN + ZTNA + CASB + SWG + FWaaS em nuvem</li>
+        <li><strong>ZTNA (Zero Trust Network Access):</strong> substitui VPN tradicional; acesso por identidade + contexto; never trust, always verify</li>
+        <li><strong>SWG (Secure Web Gateway):</strong> proxy cloud; filtragem de URL, malware, DLP para tráfego web</li>
+        <li><strong>Microsegmentação:</strong> isolamento granular de workloads; impede lateral movement; VMware NSX, Illumio</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>DNS Security & Protocolos Avançados</h3>
+      <ul class="dl">
+        <li><strong>DNSSEC:</strong> assinatura criptográfica de registros DNS — garante autenticidade e integridade</li>
+        <li><strong>DoH (DNS over HTTPS):</strong> DNS encapsulado em HTTPS — porta 443; privacidade</li>
+        <li><strong>DoT (DNS over TLS):</strong> DNS encapsulado em TLS — porta 853; privacidade</li>
+        <li><strong>DNS Sinkhole:</strong> redireciona domínios maliciosos para IP controlado — detecta hosts infectados</li>
+        <li><strong>RPZ (Response Policy Zone):</strong> bloqueia domínios maliciosos no resolver DNS interno</li>
+        <li><strong>MACsec (802.1AE):</strong> criptografia em camada 2 — entre switches</li>
+        <li><strong>BFD (Bidirectional Forwarding Detection):</strong> detecção rápida de falha de enlace</li>
+        <li><strong>RPKI:</strong> Resource Public Key Infrastructure — valida origens de rotas BGP</li>
+        <li><strong>Zero Trust Architecture:</strong> NIST SP 800-207; Policy Engine, Policy Administrator, Policy Enforcement Point</li>
+      </ul>
+    </div>
+    <div class="card a3">
+      <h3>NAC — Network Access Control</h3>
+      <ul class="dl">
+        <li><strong>NAC (Network Access Control):</strong> controla acesso à rede baseado em identidade e postura do dispositivo</li>
+        <li><strong>Pre-Admission NAC:</strong> verifica dispositivo ANTES de conceder acesso à rede</li>
+        <li><strong>Post-Admission NAC:</strong> monitora dispositivo após concessão de acesso</li>
+        <li><strong>Agentless NAC:</strong> usa 802.1X, SNMP, DHCP fingerprinting — sem software no endpoint</li>
+        <li><strong>Agent-based NAC:</strong> software no endpoint verifica postura (patches, AV, configuração)</li>
+        <li><strong>Quarantine VLAN:</strong> dispositivo não-conforme vai para rede isolada de remediation</li>
+        <li><strong>802.1X + RADIUS:</strong> autenticação de porta; Supplicant + Authenticator + Auth Server</li>
+        <li><strong>EAP Types:</strong> EAP-TLS (certificados), EAP-TTLS, PEAP (senha segura em túnel TLS)</li>
+        <li><strong>Captive Portal:</strong> redirecionamento web para autenticação — hotspot, guest Wi-Fi</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">4.5 · Email Security, VoIP & Comunicações Alternativas</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Email Security — SPF, DKIM, DMARC</h3>
+      <ul class="dl">
+        <li><strong>SPF (Sender Policy Framework):</strong> registro DNS TXT que lista IPs autorizados a enviar email pelo domínio; verifica envelope FROM</li>
+        <li><strong>DKIM (DomainKeys Identified Mail):</strong> assinatura criptográfica no cabeçalho do email — garante integridade e autenticidade do remetente</li>
+        <li><strong>DMARC (Domain-based Message Authentication):</strong> política que combina SPF + DKIM; define ação: none, quarantine, reject; envia relatórios ao domain owner</li>
+        <li><strong>BIMI (Brand Indicators for Message ID):</strong> exibe logotipo verificado em clientes de email — requer DMARC enforcement</li>
+        <li><strong>S/MIME:</strong> cifra e assina emails ponta-a-ponta com certificado X.509</li>
+        <li><strong>PGP/GPG:</strong> cifra e assina emails com web-of-trust; chave pública/privada</li>
+        <li><strong>Email Gateway:</strong> filtragem de spam, malware, phishing, DLP antes da entrega</li>
+        <li><strong>Sandboxing de anexos:</strong> executa anexos em ambiente isolado antes de entregar — detecta malware</li>
+        <li><strong>Anti-spoofing:</strong> SPF+DKIM+DMARC combinados — base de proteção anti-phishing</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>VoIP, PBX & Comunicações de Voz</h3>
+      <ul class="dl">
+        <li><strong>VoIP (Voice over IP):</strong> voz sobre rede IP — substitui PSTN tradicional; SIP, H.323, RTP</li>
+        <li><strong>SIP (Session Initiation Protocol):</strong> sinalização VoIP — porta 5060 (UDP/TCP) ou 5061 (TLS)</li>
+        <li><strong>RTP (Real-time Transport Protocol):</strong> transporte de mídia de voz/vídeo em tempo real</li>
+        <li><strong>SRTP (Secure RTP):</strong> cifra o payload de voz — AES; autenticação HMAC-SHA1</li>
+        <li><strong>Vishing:</strong> phishing via chamada VoIP — impersonação de suporte técnico, banco, governo</li>
+        <li><strong>Toll Fraud:</strong> uso não autorizado de sistema VoIP para ligações internacionais caras</li>
+        <li><strong>PBX Security:</strong> Private Branch Exchange — alterar senhas padrão; desabilitar roaming; monitorar chamadas anômalas</li>
+        <li><strong>Eavesdropping VoIP:</strong> captura de pacotes RTP — mitigação: SRTP + ZRTP</li>
+        <li><strong>QoS (Quality of Service):</strong> priorização de tráfego VoIP — DSCP marking; VLAN de voz separada</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>CDN, Satélite & Canais Alternativos</h3>
+      <ul class="dl">
+        <li><strong>CDN (Content Delivery Network):</strong> distribui conteúdo em PoPs globais — mitiga DDoS volumétrico; WAF integrado; TLS offload</li>
+        <li><strong>CDN Security Risks:</strong> cache poisoning, TLS termination no CDN (vê tráfego decifrado), origin server exposure</li>
+        <li><strong>Satellite Communications:</strong> alta latência (~600ms GEO); risco de interceptação de sinal; criptografia obrigatória</li>
+        <li><strong>LEO Satellite (Starlink):</strong> baixa latência (~20ms); crescente uso corporativo; superfície de ataque física ampla</li>
+        <li><strong>Microwave:</strong> LOS (Line of Sight) obrigatório; suscetível a jamming e interceptação; usado em backhaul de operadoras</li>
+        <li><strong>Infrared (IR):</strong> curto alcance; LOS; não atravessa paredes — menor risco de interceptação remota</li>
+        <li><strong>Bluetooth:</strong> 2.4GHz; Bluejacking (spam), Bluesnarfing (acesso dados), Bluebugging (controle); PAN</li>
+        <li><strong>NFC (Near Field Communication):</strong> &lt;10cm; pagamento contactless; relay attack, eavesdropping próximo</li>
+        <li><strong>Out-of-Band (OOB) Communication:</strong> canal alternativo separado da infra principal — SMS, celular, fax cifrado — usado em IR quando infra comprometida</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ D5 · IAM (13%) ═══ -->
+<div class="domain-section" id="d5">
+<div class="container">
+  <div class="domain-header">
+    <div class="domain-number">05</div>
+    <div class="domain-title">
+      <h2>Identity &amp; Access Management (IAM)</h2>
+      <span class="pct-badge">13% DO EXAME</span>
+      <p class="domain-desc">Autenticação, autorização, federação de identidade, SSO, PAM/PIM, Zero Trust Identity e ciclo de vida de identidades.</p>
+    </div>
+  </div>
+
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Fatores de Autenticação</h3>
+      <div class="tscroll"><table>
+        <tr><th>Fator</th><th>Categoria</th><th>Exemplos</th></tr>
+        <tr><td>Senha / PIN / Passphrase</td><td>Something you know</td><td>Password, PIN, security question</td></tr>
+        <tr><td>Token / Smart Card / OTP</td><td>Something you have</td><td>TOTP (Google Auth), HOTP, FIDO2 key, smartcard, RSA SecurID</td></tr>
+        <tr><td>Biometria física</td><td>Something you are</td><td>Digital, íris, retina, face, geometria da mão, voz</td></tr>
+        <tr><td>Localização</td><td>Somewhere you are</td><td>GPS geolocation, IP geolocation, network segment</td></tr>
+        <tr><td>Comportamento</td><td>Something you do</td><td>Keystroke dynamics, gait analysis, assinatura dinâmica</td></tr>
+      </table></div>
+      <div class="hl mt12 r"><strong>MFA:</strong> ≥2 fatores de categorias DIFERENTES. Senha + PIN = NÃO é MFA (ambos são "know"). Senha + OTP token = MFA (know + have).</div>
+    </div>
+    <div class="card a2">
+      <h3>Métricas de Biometria</h3>
+      <div class="tscroll"><table>
+        <tr><th>Métrica</th><th>Tipo de Erro</th><th>Impacto</th><th>Afeta</th></tr>
+        <tr><td>FRR (False Rejection Rate)</td><td>Type I — False Negative</td><td>Legítimo rejeitado</td><td>Usabilidade / UX</td></tr>
+        <tr><td>FAR (False Acceptance Rate)</td><td>Type II — False Positive</td><td>Impostora aceita</td><td>Segurança</td></tr>
+        <tr><td>CER / EER</td><td>Crossover Error Rate</td><td>Ponto onde FRR = FAR</td><td>Precisão do sistema</td></tr>
+      </table></div>
+      <div class="hl p mt12" style="font-size:11px;"><strong>CER menor = sistema mais preciso.</strong> Trade-off: ↓FAR (mais seguro) → ↑FRR (menos conveniente). A sensibilidade do scanner controla esse equilíbrio.</div>
+      <div class="divider"></div>
+      <div class="slabel">Tipos de Biometria por Precisão</div>
+      <ul class="dl">
+        <li><strong>Mais precisa:</strong> Retina scan, íris scan — quase único</li>
+        <li><strong>Alta precisão:</strong> Digital, geometria da mão, voz</li>
+        <li><strong>Menor precisão:</strong> Face recognition, assinatura</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Protocolos de Autenticação</h3>
+      <div class="tscroll"><table>
+        <tr><th>Protocolo</th><th>Porta</th><th>Detalhe</th></tr>
+        <tr><td>Kerberos v5</td><td>88/TCP-UDP</td><td>SSO em AD; KDC emite TGT → ST; ticket-based; clock sync ±5min</td></tr>
+        <tr><td>LDAP</td><td>389 / 636</td><td>Diretório distribuído X.500; hierarquia DC=domain, OU, CN</td></tr>
+        <tr><td>RADIUS</td><td>1812/1813 UDP</td><td>AAA centralizado; cifra apenas senha; amplamente suportado</td></tr>
+        <tr><td>TACACS+</td><td>49/TCP</td><td>Cisco; cifra pacote inteiro; granularidade por comando; auditoria detalhada</td></tr>
+        <tr><td>SAML 2.0</td><td>443</td><td>Federação web; asserção XML; SSO entre domínios; IdP + SP</td></tr>
+        <tr><td>OAuth 2.0</td><td>443</td><td>Autorização de API delegada; token-based; NÃO é protocolo de autenticação</td></tr>
+        <tr><td>OIDC</td><td>443</td><td>OpenID Connect = OAuth 2.0 + autenticação; ID Token JWT</td></tr>
+        <tr><td>FIDO2 / WebAuthn</td><td>—</td><td>Passwordless; chave pública/privada; resistente a phishing; CTAP2</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Kerberos — Fluxo Detalhado</h3>
+      <ul class="dl">
+        <li><strong>KDC (Key Distribution Center):</strong> AS (Authentication Service) + TGS (Ticket Granting Service)</li>
+        <li><strong>1. AS-REQ:</strong> cliente envia hash de senha ao AS</li>
+        <li><strong>2. AS-REP:</strong> AS retorna TGT (Ticket Granting Ticket) cifrado com chave do KDC</li>
+        <li><strong>3. TGS-REQ:</strong> cliente envia TGT + requisição de serviço ao TGS</li>
+        <li><strong>4. TGS-REP:</strong> TGS retorna Service Ticket (ST) cifrado com chave do servidor de destino</li>
+        <li><strong>5. AP-REQ:</strong> cliente apresenta ST ao servidor de destino</li>
+        <li><strong>6. AP-REP:</strong> servidor confirma autenticação mútua</li>
+        <li><strong>Kerberoasting:</strong> atacante solicita ST de SPN → crack offline do hash</li>
+        <li><strong>Pass-the-Ticket:</strong> reutiliza TGT roubado da memória (Mimikatz)</li>
+        <li><strong>Golden Ticket:</strong> TGT forjado com hash do krbtgt — acesso ilimitado</li>
+        <li><strong>Silver Ticket:</strong> ST forjado para serviço específico — sem KDC</li>
+        <li><strong>Clock Sync:</strong> tolerância de ±5 minutos — NTP obrigatório</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>Federação, SSO & OAuth Flows</h3>
+      <ul class="dl">
+        <li><strong>SSO:</strong> Single Sign-On — autenticação única para múltiplos sistemas; trade-off: single point of failure</li>
+        <li><strong>Federation:</strong> confiança entre domínios/organizações distintas sem conta local</li>
+        <li><strong>IdP (Identity Provider):</strong> autentica o usuário e emite asserções/tokens</li>
+        <li><strong>SP (Service Provider):</strong> confia no IdP; fornece o serviço ao usuário autenticado</li>
+        <li><strong>Trust Relationship:</strong> acordo formal e técnico entre IdP e SP</li>
+      </ul>
+      <div class="divider"></div>
+      <div class="slabel">OAuth 2.0 Grant Types</div>
+      <div class="tscroll"><table>
+        <tr><th>Flow</th><th>Uso</th></tr>
+        <tr><td>Authorization Code + PKCE</td><td>Web apps e mobile — mais seguro</td></tr>
+        <tr><td>Client Credentials</td><td>Machine-to-machine (M2M); sem usuário</td></tr>
+        <tr><td>Device Code</td><td>Smart TV, CLI tools sem browser</td></tr>
+        <tr><td>Implicit</td><td><span class="tag r">Depreciado</span> — token exposto na URL</td></tr>
+        <tr><td>Resource Owner Password</td><td><span class="tag r">Legado — evitar</span></td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Provisioning & Ciclo de Vida</h3>
+      <ul class="dl">
+        <li><strong>Provisioning:</strong> criação de conta e atribuição de acesso (onboarding)</li>
+        <li><strong>De-provisioning:</strong> remoção IMEDIATA de acesso no desligamento — crítico</li>
+        <li><strong>Orphaned Account:</strong> conta de ex-funcionário ainda ativa — alto risco</li>
+        <li><strong>Access Review / Recertification:</strong> revisão periódica formal dos direitos de acesso</li>
+        <li><strong>SCIM (System for Cross-domain IM):</strong> provisionamento automatizado via API REST</li>
+        <li><strong>JIT (Just-in-Time):</strong> acesso criado no momento do uso; removido automaticamente depois</li>
+        <li><strong>Birthright Access:</strong> acesso padrão concedido a todos (e-mail, VPN) — revisar periodicamente</li>
+        <li><strong>Aggregation:</strong> acúmulo de direitos ao longo do tempo — viola least privilege</li>
+        <li><strong>Separation of Duties:</strong> IAM deve impedir que um usuário acumule papéis conflitantes</li>
+      </ul>
+    </div>
+    <div class="card a3">
+      <h3>PAM / PIM — Contas Privilegiadas</h3>
+      <ul class="dl">
+        <li><strong>PAM (Privileged Access Management):</strong> gestão de contas administrativas e privilegiadas</li>
+        <li><strong>Password Vaulting:</strong> armazenamento seguro de credenciais privilegiadas; check-in/check-out</li>
+        <li><strong>Session Recording:</strong> gravação de sessões privilegiadas para auditoria</li>
+        <li><strong>Credential Rotation:</strong> rotação automática de senhas de contas privilegiadas</li>
+        <li><strong>PIM (Privileged Identity Management):</strong> Azure AD PIM — elevação temporal de privilégio</li>
+        <li><strong>Break-glass Account:</strong> conta de emergência com acesso total — uso excepcional e auditado</li>
+        <li><strong>Service Account:</strong> contas usadas por aplicações — gestão especial; sem login interativo</li>
+        <li><strong>Shared Account:</strong> evitar sempre que possível — impossibilita accountability individual</li>
+        <li><strong>Zero Standing Privilege:</strong> princípio avançado — nenhum acesso permanente; tudo JIT</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Directory Services</h3>
+      <ul class="dl">
+        <li><strong>Active Directory (AD):</strong> Microsoft; LDAP + Kerberos + DNS; domínio, floresta, trust</li>
+        <li><strong>Azure AD / Entra ID:</strong> AD na nuvem; suporta SAML, OAuth, OIDC; Conditional Access</li>
+        <li><strong>LDAP:</strong> Lightweight Directory Access Protocol; porto 389/636; hierarquia X.500</li>
+        <li><strong>DN (Distinguished Name):</strong> CN=John,OU=IT,DC=corp,DC=com</li>
+        <li><strong>Group Policy (GPO):</strong> políticas de segurança aplicadas via AD — configuração de SO, restrições</li>
+        <li><strong>Trust Relationships em AD:</strong> one-way, two-way, transitive, external — acesso cross-domain</li>
+        <li><strong>Kerberos Delegation:</strong> impersonation de usuário por serviço — constrained delegation mais seguro</li>
+        <li><strong>LDAP Injection:</strong> input não sanitizado em queries LDAP — análogo a SQLi</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">5.4 · Password Management, Accountability & Audit Trails</div>
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Password Policy & Gestão</h3>
+      <div class="tscroll"><table>
+        <tr><th>Requisito</th><th>Recomendação NIST SP 800-63B (2024)</th></tr>
+        <tr><td>Comprimento mínimo</td><td>8 caracteres para usuário; 15+ para contas privilegiadas</td></tr>
+        <tr><td>Complexidade</td><td>NÃO é mais recomendado forçar complexidade — aumenta adesão a padrões previsíveis</td></tr>
+        <tr><td>Expiração periódica</td><td>NÃO recomendado — expirar apenas em evidência de comprometimento</td></tr>
+        <tr><td>Histórico</td><td>Impedir reutilização das últimas N senhas</td></tr>
+        <tr><td>Blacklist</td><td>Verificar contra lista de senhas comprometidas (HaveIBeenPwned, HIBP API)</td></tr>
+        <tr><td>MFA</td><td>Obrigatório para contas privilegiadas e acesso remoto</td></tr>
+        <tr><td>Armazenamento</td><td>Argon2id ou bcrypt com salt — NUNCA MD5/SHA-1 sem salt</td></tr>
+      </table></div>
+      <div class="hl mt12" style="font-size:11px;"><strong>Passphrase:</strong> sequência de palavras aleatórias — "correct-horse-battery-staple" — maior entropia, mais fácil de lembrar que "P@$$w0rd1!"</div>
+    </div>
+    <div class="card a2">
+      <h3>Accountability & Audit Trails</h3>
+      <ul class="dl">
+        <li><strong>Accountability:</strong> capacidade de rastrear ações a um indivíduo específico — pressupõe autenticação forte e identificação única</li>
+        <li><strong>Non-repudiation:</strong> sujeito não pode negar ter realizado a ação — garantido por logs + assinatura digital</li>
+        <li><strong>Audit Trail:</strong> registro cronológico de atividades — quem, o quê, quando, de onde</li>
+        <li><strong>Audit Log Requisitos:</strong> completo, consistente, timestampado (NTP), protegido contra alteração</li>
+        <li><strong>Log Integrity:</strong> logs enviados para sistema separado imediatamente — impede tampering pelo atacante que comprometeu o host</li>
+        <li><strong>WORM Storage:</strong> Write Once Read Many — logs imutáveis; compliance e forensics</li>
+        <li><strong>Shared Accounts:</strong> impossibilita accountability — cada usuário deve ter identidade única</li>
+        <li><strong>Clipping Level:</strong> limiar de erros aceitáveis antes de acionar alerta — evita falsos positivos em erros normais</li>
+        <li><strong>Access Review (Recertification):</strong> revisar periodicamente quem tem acesso a quê — detecta privilégios acumulados</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ D6 · SECURITY ASSESSMENT & TESTING (12%) ═══ -->
+<div class="domain-section" id="d6">
+<div class="container">
+  <div class="domain-header">
+    <div class="domain-number">06</div>
+    <div class="domain-title">
+      <h2>Security Assessment &amp; Testing</h2>
+      <span class="pct-badge">12% DO EXAME</span>
+      <p class="domain-desc">Testes de segurança, pentest, code review, auditorias, SOC reports, métricas, log management e monitoramento contínuo.</p>
+    </div>
+  </div>
+
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Tipos de Avaliação</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Descrição</th></tr>
+        <tr><td>Vulnerability Assessment</td><td>Identifica e prioriza vulns sem exploração ativa</td></tr>
+        <tr><td>Penetration Test</td><td>Exploração controlada para comprovar impacto real</td></tr>
+        <tr><td>Red Team Exercise</td><td>Adversary simulation; APT-like; escopo aberto; sem restrição</td></tr>
+        <tr><td>Blue Team</td><td>Defesa e detecção; monitora durante exercícios</td></tr>
+        <tr><td>Purple Team</td><td>Colaboração Red + Blue; melhoria contínua e compartilhamento de TTP</td></tr>
+        <tr><td>Security Audit</td><td>Avaliação de compliance; evidências documentais + entrevistas</td></tr>
+        <tr><td>Threat Hunt</td><td>Busca proativa de comprometimentos não detectados no ambiente</td></tr>
+        <tr><td>Bug Bounty</td><td>Pesquisadores externos reportam vulns por recompensa</td></tr>
+        <tr><td>Security Review</td><td>Avaliação de design/arquitetura antes de implementação</td></tr>
+      </table></div>
+    </div>
+    <div class="card a2">
+      <h3>Pentest — Fases & Metodologias</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Conhecimento</th><th>Simula</th></tr>
+        <tr><td>Black Box</td><td>Zero</td><td>Atacante externo sem nenhuma informação prévia</td></tr>
+        <tr><td>White Box</td><td>Total — código, credenciais, infra</td><td>Insider malicioso / auditoria interna</td></tr>
+        <tr><td>Gray Box</td><td>Parcial — algumas credenciais ou info</td><td>Usuário autenticado com acesso limitado</td></tr>
+      </table></div>
+      <div class="slabel mt12">Fases do Pentest</div>
+      <ul class="dl">
+        <li><strong>1. Planning &amp; Scoping:</strong> ROE (Rules of Engagement), NDA, escopo, cronograma</li>
+        <li><strong>2. Reconnaissance:</strong> OSINT passivo (Shodan, LinkedIn, WHOIS) e ativo (DNS enum)</li>
+        <li><strong>3. Scanning:</strong> port scan (Nmap), vuln scan (Nessus, OpenVAS)</li>
+        <li><strong>4. Exploitation:</strong> comprometimento inicial (Metasploit, exploits manuais)</li>
+        <li><strong>5. Post-Exploitation:</strong> privilege escalation, lateral movement, persistence, exfiltração</li>
+        <li><strong>6. Reporting:</strong> executive summary + technical findings + evidências + recomendações priorizadas</li>
+        <li><strong>7. Remediation &amp; Retest:</strong> validar que vulns foram corrigidas</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Análise de Código</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Método</th><th>Quando</th><th>Ferramentas</th></tr>
+        <tr><td>SAST</td><td>Análise estática sem execução</td><td>Durante desenvolvimento</td><td>SonarQube, Checkmarx, Semgrep</td></tr>
+        <tr><td>DAST</td><td>Análise dinâmica em execução</td><td>Fase de teste / staging</td><td>Burp Suite, OWASP ZAP, Nikto</td></tr>
+        <tr><td>IAST</td><td>Agente dentro da app em runtime</td><td>QA / staging</td><td>Seeker, Hdiv, Contrast</td></tr>
+        <tr><td>RASP</td><td>Proteção em runtime — bloqueia ataques</td><td>Produção</td><td>Sqreen, Contrast, OpenRASP</td></tr>
+        <tr><td>SCA</td><td>Análise de dependências open-source</td><td>Pipeline CI/CD</td><td>Snyk, OWASP Dependency-Check, Black Duck</td></tr>
+        <tr><td>Fuzzing</td><td>Entradas aleatórias/malformadas</td><td>Teste de robustez</td><td>AFL, libFuzzer, Boofuzz</td></tr>
+        <tr><td>Manual Review</td><td>Revisão humana linha a linha</td><td>Código crítico</td><td>Par review, peer review</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Auditorias & SOC Reports</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Foco</th><th>Audiência</th></tr>
+        <tr><td>SOC 1 Type I</td><td>Controles financeiros; design no ponto no tempo</td><td>Auditores financeiros do cliente</td></tr>
+        <tr><td>SOC 1 Type II</td><td>Controles financeiros; operação durante período (6–12m)</td><td>Auditores financeiros + clientes</td></tr>
+        <tr><td>SOC 2 Type I</td><td>Trust Services Criteria; design no ponto no tempo</td><td>Parceiros, clientes enterprise</td></tr>
+        <tr><td>SOC 2 Type II</td><td>Trust Services Criteria; operação durante período — <strong>melhor para vendor risk</strong></td><td>Clientes enterprise, diligência</td></tr>
+        <tr><td>SOC 3</td><td>SOC 2 simplificado; relatório público</td><td>Público geral; marketing</td></tr>
+        <tr><td>ISO 27001 Audit</td><td>SGSI — certificação internacional</td><td>Global; clientes, reguladores</td></tr>
+      </table></div>
+      <div class="hl mt12" style="font-size:11px;"><strong>Trust Services Criteria (TSC):</strong> Security (CC) · Availability · Processing Integrity · Confidentiality · Privacy</div>
+      <div class="divider"></div>
+      <div class="slabel">Tipos de Auditoria</div>
+      <ul class="dl">
+        <li><strong>Internal Audit:</strong> realizado pela própria equipe — menos objetividade</li>
+        <li><strong>External Audit:</strong> terceiro independente — maior credibilidade</li>
+        <li><strong>Third-Party Audit:</strong> avalia conformidade de fornecedor</li>
+        <li><strong>Compliance Audit:</strong> verifica aderência a regulação específica (PCI, HIPAA)</li>
+      </ul>
+    </div>
+    <div class="card a3">
+      <h3>Métricas, KPIs & Log Management</h3>
+      <div class="tscroll"><table>
+        <tr><th>Métrica</th><th>Definição</th></tr>
+        <tr><td>MTTD</td><td>Mean Time to Detect — tempo médio para detectar incidente</td></tr>
+        <tr><td>MTTR</td><td>Mean Time to Respond/Recover — tempo de resposta/recuperação</td></tr>
+        <tr><td>MTBF</td><td>Mean Time Between Failures — confiabilidade de sistemas</td></tr>
+        <tr><td>False Positive Rate</td><td>% de alertas que são falsos positivos — mede ruído do SIEM</td></tr>
+        <tr><td>Patch Cadence</td><td>Tempo médio entre disponibilidade do patch e aplicação</td></tr>
+        <tr><td>Vulnerability Density</td><td>Nº de vulns por KLOC (mil linhas de código)</td></tr>
+        <tr><td>Coverage %</td><td>% de sistemas cobertos por controles (EDR, SIEM, scan)</td></tr>
+        <tr><td>SLA Compliance</td><td>% de incidentes respondidos dentro do SLA acordado</td></tr>
+      </table></div>
+      <div class="divider"></div>
+      <ul class="dl">
+        <li><strong>SIEM:</strong> Security Information &amp; Event Management — correlação centralizada e alerta</li>
+        <li><strong>UEBA:</strong> User &amp; Entity Behavior Analytics — detecção por anomalia de comportamento</li>
+        <li><strong>Syslog:</strong> RFC 5424; porta 514 UDP/TCP; facilities + severities (0=Emergency, 7=Debug)</li>
+        <li><strong>Log Retention:</strong> PCI DSS: 1 ano; HIPAA: 6 anos; definir por compliance relevante</li>
+        <li><strong>NTP:</strong> sincronização de tempo — crítico para correlação de logs e forensics</li>
+        <li><strong>Centralized Logging:</strong> forward para SIEM — evita tampering de logs locais</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Test Coverage & Interface Testing</h3>
+      <ul class="dl">
+        <li><strong>Test Coverage:</strong> % do código exercitado pelos testes — 80%+ recomendado</li>
+        <li><strong>Branch Coverage:</strong> cada condição (if/else) executada em ambas as direções</li>
+        <li><strong>Path Coverage:</strong> todos os caminhos de execução possíveis — mais completo</li>
+        <li><strong>Interface Testing:</strong> testa APIs, serviços, integrações entre componentes — garante contrato</li>
+        <li><strong>Misuse Case Testing:</strong> ao contrário de use case — como um atacante usaria a funcionalidade?</li>
+        <li><strong>Mutation Testing:</strong> altera código para verificar se testes detectam a mudança</li>
+        <li><strong>Regression Testing:</strong> garante que correções não quebraram funcionalidades existentes</li>
+        <li><strong>Acceptance Testing (UAT):</strong> validação com usuário final antes de produção</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>Monitoramento Contínuo</h3>
+      <ul class="dl">
+        <li><strong>Continuous Monitoring:</strong> NIST SP 800-137; automação de coleta e análise de dados de segurança</li>
+        <li><strong>SOAR:</strong> Security Orchestration, Automation and Response — playbooks automatizados</li>
+        <li><strong>EDR:</strong> Endpoint Detection and Response — visibilidade e resposta em endpoints</li>
+        <li><strong>XDR:</strong> Extended Detection and Response — correlação cross-layer (endpoint + rede + cloud)</li>
+        <li><strong>NDR:</strong> Network Detection and Response — análise de tráfego de rede com ML</li>
+        <li><strong>Vulnerability Management Lifecycle:</strong> Discover → Prioritize → Assess → Report → Remediate → Verify</li>
+        <li><strong>CVSS v3.1 / v4.0:</strong> Common Vulnerability Scoring System; Base Score 0–10; Critical ≥9.0</li>
+        <li><strong>CVE:</strong> Common Vulnerabilities and Exposures — ID único por vulnerabilidade (NVD)</li>
+        <li><strong>EPSS:</strong> Exploit Prediction Scoring System — probabilidade de exploração nos próximos 30 dias</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">6.4 · Técnicas de Reconhecimento & Synthetic Transactions</div>
+  <div class="grid-2 mb24">
+    <div class="card a3">
+      <h3>War Dialing, War Driving & Reconhecimento</h3>
+      <ul class="dl">
+        <li><strong>War Dialing:</strong> discar sistematicamente uma faixa de números telefônicos buscando modems, BBS e sistemas de acesso — técnica legada ainda relevante no CBK</li>
+        <li><strong>War Driving:</strong> dirigir com laptop + antena Wi-Fi mapeando APs desprotegidos — GPS + scanner (NetStumbler, Kismet)</li>
+        <li><strong>War Walking / War Flying:</strong> variações de war driving a pé ou com drone</li>
+        <li><strong>Warshipping:</strong> enviar dispositivo com hardware de reconhecimento dentro de encomenda para o alvo</li>
+        <li><strong>Passive Reconnaissance:</strong> OSINT sem interação direta — WHOIS, Shodan, LinkedIn, Google Dorks, Censys</li>
+        <li><strong>Active Reconnaissance:</strong> interação direta — port scan, DNS zone transfer, banner grabbing</li>
+        <li><strong>Footprinting:</strong> coleta inicial de informação sobre o alvo — topologia, IPs, tecnologias, funcionários</li>
+        <li><strong>Enumeration:</strong> extração de informação específica após reconhecimento — usuários, shares, serviços, configurações</li>
+        <li><strong>Google Dorks:</strong> operadores avançados de busca para descobrir arquivos, painéis e dados expostos (site:, filetype:, inurl:, intitle:)</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>Vulnerability Scanning & Synthetic Transactions</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo de Scan</th><th>Método</th><th>Resultado</th></tr>
+        <tr><td>Credentialed Scan</td><td>Com credenciais válidas no alvo</td><td>Visibilidade completa — patches, configuração, software instalado</td></tr>
+        <tr><td>Uncredentialed Scan</td><td>Sem credenciais — perspectiva externa</td><td>O que um atacante vê; menos falsos negativos para exposição externa</td></tr>
+        <tr><td>Agent-based Scan</td><td>Agente instalado no host</td><td>Visibilidade contínua sem necessidade de credenciais de rede</td></tr>
+        <tr><td>Network Scan</td><td>Varredura de portas e serviços</td><td>Topologia, portas abertas, serviços expostos</td></tr>
+        <tr><td>Web App Scan</td><td>HTTP spider + fuzzing de parâmetros</td><td>SQLi, XSS, misconfigs em aplicação web</td></tr>
+      </table></div>
+      <div class="divider"></div>
+      <ul class="dl">
+        <li><strong>Synthetic Transactions:</strong> transações simuladas automaticamente para verificar disponibilidade e correto funcionamento de sistemas — monitoramento proativo</li>
+        <li><strong>Exemplos:</strong> login automatizado em app web, submissão de formulário, consulta de API — verifica SLA de disponibilidade continuamente</li>
+        <li><strong>Diferença de vuln scan:</strong> synthetic transaction verifica funcionalidade/disponibilidade; vuln scan verifica segurança</li>
+        <li><strong>RUM (Real User Monitoring):</strong> monitora transações de usuários reais em produção — complementa synthetic</li>
+        <li><strong>Account Management Review:</strong> auditoria periódica de contas — identificar órfãs, excessos de privilégio, violações de SoD</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ D7 · SECURITY OPERATIONS (13%) ═══ -->
+<div class="domain-section" id="d7">
+<div class="container">
+  <div class="domain-header">
+    <div class="domain-number">07</div>
+    <div class="domain-title">
+      <h2>Security Operations</h2>
+      <span class="pct-badge">13% DO EXAME</span>
+      <p class="domain-desc">Incident Response, forense digital, segurança física, change management, DLP, deception technology, EDR/XDR e operações de SOC.</p>
+    </div>
+  </div>
+
+  <div class="slabel mb24">7.1 · Incident Response</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Processo IR — NIST SP 800-61 Rev.2</h3>
+      <ul class="dl">
+        <li><strong>1. Preparation (mais importante!):</strong> políticas, playbooks, equipe CSIRT, ferramentas, treinamento, exercícios</li>
+        <li><strong>2. Detection &amp; Analysis:</strong> identificar, classificar severity, triagem, escalonamento, documentação inicial</li>
+        <li><strong>3. Containment:</strong> short-term (isolar sistema) → coleta de evidências → long-term containment (correção parcial)</li>
+        <li><strong>4. Eradication:</strong> remover causa-raiz, malware, contas comprometidas, backdoors</li>
+        <li><strong>5. Recovery:</strong> restaurar sistemas; monitorar intensivamente por reinfecção ou atividade residual</li>
+        <li><strong>6. Post-Incident Activity:</strong> Lessons Learned em reunião formal; atualizar políticas e playbooks; relatório final</li>
+      </ul>
+      <div class="hl mt12" style="font-size:11px;"><strong>SANS PICERL:</strong> Preparation · Identification · Containment · Eradication · Recovery · Lessons Learned</div>
+    </div>
+    <div class="card a2">
+      <h3>Tipos de Incidente & Comunicação</h3>
+      <ul class="dl">
+        <li><strong>Event:</strong> qualquer ocorrência observável no sistema (log entry, acesso, query)</li>
+        <li><strong>Adverse Event:</strong> evento com consequência negativa</li>
+        <li><strong>Security Incident:</strong> violação ou ameaça iminente de violação de política de segurança</li>
+        <li><strong>Data Breach:</strong> exposição de dados sensíveis a partes não autorizadas</li>
+        <li><strong>Data Disclosure:</strong> dado sensível revelado acidentalmente</li>
+        <li><strong>Severity Levels:</strong> Critical / High / Medium / Low — baseado em impacto e urgência</li>
+      </ul>
+      <div class="divider"></div>
+      <div class="slabel">Comunicação de Incidentes</div>
+      <ul class="dl">
+        <li><strong>Need to Know:</strong> limitar informação apenas a envolvidos necessários</li>
+        <li><strong>Out-of-Band Communication:</strong> canal alternativo se infra comprometida (celular, Signal)</li>
+        <li><strong>Legal Hold:</strong> suspende destruição de evidências em caso de litígio</li>
+        <li><strong>Disclosure obrigatória:</strong> GDPR 72h à autoridade; HIPAA 60 dias; PCI DSS: imediato ao adquirente</li>
+        <li><strong>TLP (Traffic Light Protocol):</strong> RED (só destinatários), AMBER, GREEN, WHITE — controla disseminação de CTI</li>
+      </ul>
+    </div>
+    <div class="card a3">
+      <h3>Forense Digital</h3>
+      <ul class="dl">
+        <li><strong>Order of Volatility (RFC 3227):</strong> CPU registers → Cache → RAM → Swap → Network state → Running processes → Disk → Optical media → Remote logs → Backups</li>
+        <li><strong>Chain of Custody:</strong> documentação contínua e ininterrupta do manuseio da evidência</li>
+        <li><strong>Write Blocker:</strong> hardware/software que impede alteração da mídia durante coleta</li>
+        <li><strong>Forensic Image:</strong> cópia bit-a-bit; validar com hash MD5 + SHA-256 antes e depois</li>
+        <li><strong>Working Copy:</strong> sempre trabalhar na cópia — nunca na evidência original</li>
+        <li><strong>Timeline Analysis:</strong> reconstrução de eventos com timestamps de múltiplas fontes</li>
+        <li><strong>Memory Forensics:</strong> Volatility framework — processos, conexões, artefatos de malware em RAM</li>
+        <li><strong>Anti-Forensics:</strong> timestamp manipulation, steganography, wiping, encryption, log deletion</li>
+        <li><strong>eDiscovery:</strong> identificação, preservação, coleta, processamento e produção de evidências eletrônicas</li>
+        <li><strong>Locard's Exchange Principle:</strong> toda interação física deixa rastros em ambas as partes</li>
+        <li><strong>Legal Admissibility:</strong> evidência deve ser autêntica, suficiente, completa, confiável, crível</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">7.2 · Threat Hunting</div>
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Threat Hunting</h3>
+      <ul class="dl">
+        <li><strong>Definição:</strong> busca proativa e hipótese-driven de ameaças que eludiram controles automatizados</li>
+        <li><strong>Hypothesis-driven:</strong> baseado em CTI (TTPs de APT, MITRE ATT&amp;CK) + conhecimento do ambiente</li>
+        <li><strong>Intelligence-driven:</strong> IoC recebido → buscar no ambiente se há evidência de comprometimento</li>
+        <li><strong>Situational Awareness:</strong> baseado em anomalias detectadas no SIEM/EDR</li>
+        <li><strong>Hunting Loop:</strong> Hypothesis → Hunt → Discover → Analyze → Inform (melhora detecções automatizadas)</li>
+        <li><strong>Ferramentas:</strong> EDR (CrowdStrike, Carbon Black), SIEM (Splunk, Elastic), Velociraptor, Osquery</li>
+        <li><strong>Maturity (Sqrrl model):</strong> L0 (reativo) → L1 (indicadores) → L2 (TTPs) → L3 (machine learning) → L4 (automação)</li>
+        <li><strong>Diferença de IR:</strong> Hunting é proativo (sem alerta); IR é reativo (começa com alerta)</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Deception Technology</h3>
+      <ul class="dl">
+        <li><strong>Honeypot:</strong> sistema isca que simula vulnerabilidades — detecta atacantes na rede</li>
+        <li><strong>Honeynet:</strong> rede de honeypots interconectados — ambiente isca complexo</li>
+        <li><strong>Honey Token:</strong> credencial, arquivo ou dado falso — alerta quando acessado (canary token)</li>
+        <li><strong>Honey File:</strong> documento isca com beacon — detecta exfiltração</li>
+        <li><strong>Honey User:</strong> conta falsa que nunca deveria ser usada — alerta imediato se login ocorrer</li>
+        <li><strong>Production Honeypot:</strong> na rede de produção — para detecção real</li>
+        <li><strong>Research Honeypot:</strong> ambiente isolado — para estudo de malware e TTPs</li>
+        <li><strong>Enticement vs. Entrapment:</strong> enticement (legal — oportunidade) vs. entrapment (ilegal — induzir crime)</li>
+        <li><strong>Deception Platforms:</strong> Attivo, Illusive Networks, TrapX — distribuem isca automaticamente</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">7.3 · DLP & Proteção de Dados em Operação</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>DLP (Data Loss Prevention)</h3>
+      <ul class="dl">
+        <li><strong>Endpoint DLP:</strong> agente no endpoint monitora arquivos, clipboard, USB, impressão</li>
+        <li><strong>Network DLP:</strong> inline na rede — inspeciona tráfego de saída (email, web, FTP)</li>
+        <li><strong>Cloud DLP / CASB:</strong> monitora dados em cloud apps (Google Drive, O365, Box)</li>
+        <li><strong>Content Inspection:</strong> regex, keywords, fingerprint, ML — detecta dados sensíveis</li>
+        <li><strong>Actions:</strong> alert, block, quarantine, encrypt, apply watermark</li>
+        <li><strong>False Positive Management:</strong> tuning de políticas — equilíbrio segurança x produtividade</li>
+        <li><strong>Data Classification:</strong> DLP depende de classificação correta dos dados</li>
+        <li><strong>Exfiltration Channels:</strong> email, USB, cloud sync, print, screenshot, clipboard</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>Segurança Física — Camadas</h3>
+      <div class="tscroll"><table>
+        <tr><th>Camada</th><th>Controles</th></tr>
+        <tr><td>Perímetro externo</td><td>Cerca, muro, iluminação, CCTV, bollard (veículos), guardas</td></tr>
+        <tr><td>Acesso ao edifício</td><td>Badge reader, portão eletrônico, recepcionista, visitor management</td></tr>
+        <tr><td>Lobby / Recepção</td><td>Crachá de visitante, escort obrigatório, câmeras, recepcionista</td></tr>
+        <tr><td>Andares / Área de trabalho</td><td>Badge reader, câmera, clean desk policy, privacy screen</td></tr>
+        <tr><td>Data Center / Server Room</td><td>Mantrap, biometria, dual authorization, câmeras internas, logging</td></tr>
+        <tr><td>Rack / Equipamento</td><td>Cadeado de rack, cable lock, tamper-evident tape, asset tags</td></tr>
+      </table></div>
+    </div>
+    <div class="card a4">
+      <h3>Controles Físicos Específicos</h3>
+      <ul class="dl">
+        <li><strong>Mantrap / Airlock:</strong> antecâmara com duas portas — permite entrada de uma pessoa por vez; impede tailgating</li>
+        <li><strong>Turnstile:</strong> catraca unidirecional — impede passagem de múltiplas pessoas por acesso</li>
+        <li><strong>Bollard:</strong> postes de concreto — impedem veículos de invadir o perímetro</li>
+        <li><strong>CPTED:</strong> Crime Prevention Through Environmental Design — iluminação, visibilidade, territorialidade</li>
+        <li><strong>Faraday Cage:</strong> caixa que bloqueia EM — protege contra TEMPEST e jamming</li>
+        <li><strong>Motion Sensors:</strong> PIR (Passive Infrared), ultrassônico, microwave — alarme de presença</li>
+        <li><strong>HVAC Segurança:</strong> temperatura 18–27°C; umidade 40–60%; alarme de temperatura</li>
+        <li><strong>Supressão de Incêndio:</strong> FM-200 / Novec 1230 (clean agent, sem dano a equipamentos) — CO₂ (sem pessoas)</li>
+        <li><strong>UPS + Generator:</strong> continuidade de energia elétrica; UPS = minutos; Generator = horas/dias</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">7.4 · Change Management & Operações de Segurança</div>
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>Change Management</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo de Mudança</th><th>Processo</th></tr>
+        <tr><td>Standard (Pre-approved)</td><td>Baixo risco; aprovação prévia; sem CAB necessário</td></tr>
+        <tr><td>Normal</td><td>Processo completo; RFC + CAB approval</td></tr>
+        <tr><td>Emergency</td><td>Expedited; aprovação simplificada; documentação pós-fato</td></tr>
+      </table></div>
+      <div class="divider"></div>
+      <ul class="dl">
+        <li><strong>RFC (Request for Change):</strong> documentação formal — descrição, justificativa, impacto, rollback plan</li>
+        <li><strong>CAB (Change Advisory Board):</strong> comitê multidisciplinar que analisa e aprova mudanças</li>
+        <li><strong>Rollback Plan:</strong> plano de reversão obrigatório antes de implementar qualquer mudança</li>
+        <li><strong>Configuration Baseline:</strong> estado aprovado e documentado — qualquer desvio é não-autorizado</li>
+        <li><strong>Configuration Management:</strong> rastreia configurações de sistemas; detecta drift (CMDB)</li>
+        <li><strong>Patch Management:</strong> identificar → testar → aprovar → deployer → verificar → documentar</li>
+        <li><strong>Virtual Patching:</strong> WAF/IPS bloqueia exploração da vuln antes do patch real (mitigação temporária)</li>
+        <li><strong>Change Freeze:</strong> período sem mudanças (ex: end-of-year, eventos críticos)</li>
+      </ul>
+    </div>
+    <div class="card a3">
+      <h3>Controles Administrativos de Operações</h3>
+      <ul class="dl">
+        <li><strong>Least Privilege:</strong> revisão periódica e remoção de direitos excessivos</li>
+        <li><strong>Separation of Duties:</strong> nenhuma pessoa controla todo um processo crítico</li>
+        <li><strong>Two-Person Rule / Dual Control:</strong> ação requer duas pessoas simultâneas — lançamento de mísseis, cofre bancário</li>
+        <li><strong>Job Rotation:</strong> previne fraudes por familiaridade e cobertura cruzada</li>
+        <li><strong>Mandatory Vacation:</strong> afastamento forçado detecta irregularidades que dependem da presença do funcionário</li>
+        <li><strong>Clipping Level:</strong> threshold de erros antes de acionar alerta (ex: 3 falhas de login consecutivas)</li>
+        <li><strong>Need to Know:</strong> acesso a dados sensíveis apenas para função específica — mesmo com clearance</li>
+        <li><strong>Media Management:</strong> rotulação, inventário, controle de acesso e destruição segura de mídias</li>
+        <li><strong>Asset Tracking:</strong> RFID, etiquetas, inventário físico periódico</li>
+        <li><strong>Secure Disposal:</strong> NIST SP 800-88; procedimento documentado por tipo de ativo</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">7.5 · Anti-Malware, Egress/Ingress Filtering & Application Control</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Anti-Malware — Tipos & Técnicas</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Método de Detecção</th><th>Cobertura</th></tr>
+        <tr><td>Antivirus (AV) Tradicional</td><td>Assinaturas de malware conhecido</td><td>Boa para known malware; zero-day blind</td></tr>
+        <tr><td>Heuristic AV</td><td>Análise comportamental estática de código</td><td>Detecta variantes; mais falsos positivos</td></tr>
+        <tr><td>EDR (Endpoint Detection &amp; Response)</td><td>Telemetria contínua; ML; comportamento em runtime</td><td>Detecta TTPs; resposta e isolamento</td></tr>
+        <tr><td>Sandbox / Dynamic Analysis</td><td>Executa arquivo em ambiente isolado e observa comportamento</td><td>Alta — detecta malware polimórfico e evasivo</td></tr>
+        <tr><td>Application Whitelisting</td><td>Só executa apps aprovados — bloqueia tudo mais</td><td>Máxima — bloqueia malware desconhecido por padrão</td></tr>
+        <tr><td>File Integrity Monitoring (FIM)</td><td>Hash de arquivos críticos — detecta modificação</td><td>Detecta rootkits, backdoors em arquivos do sistema</td></tr>
+      </table></div>
+      <div class="hl mt12" style="font-size:11px;"><strong>Malware polimórfico:</strong> muda assinatura a cada infecção — evita AV baseado em assinatura. <strong>Metamórfico:</strong> reescreve seu próprio código completamente.</div>
+    </div>
+    <div class="card a2">
+      <h3>Egress & Ingress Filtering</h3>
+      <ul class="dl">
+        <li><strong>Ingress Filtering:</strong> bloqueia tráfego de entrada com endereço IP spoofado ou não roteável — impede ataques de amplificação e spoofing</li>
+        <li><strong>Egress Filtering:</strong> controla e monitora tráfego de saída — detecta exfiltração de dados, C2 callback, DNS tunneling</li>
+        <li><strong>BCP 38 (RFC 2827):</strong> recomendação de ingress filtering em ISPs — impede IP spoofing na origem</li>
+        <li><strong>DNS Filtering:</strong> bloquear resolução de domínios maliciosos (C2, phishing) — Cisco Umbrella, Cloudflare Gateway</li>
+        <li><strong>Data Exfiltration Channels:</strong> DNS tunneling, HTTPS à cloud pessoal, ICMP covert channel, steganography — egress filtering detecta</li>
+        <li><strong>Proxy (Forward Proxy):</strong> todo tráfego web de saída passa pelo proxy — visibilidade, filtragem e logging</li>
+        <li><strong>SSL/TLS Inspection:</strong> decrypt + inspect + re-encrypt tráfego HTTPS — necessário para visibilidade completa</li>
+        <li><strong>DLP Network:</strong> inspeciona conteúdo de saída — bloqueia envio de dados classificados</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Application Control & Whitelisting</h3>
+      <ul class="dl">
+        <li><strong>Application Whitelisting:</strong> apenas aplicações explicitamente aprovadas podem executar — abordagem deny-by-default mais segura</li>
+        <li><strong>Application Blacklisting:</strong> bloqueia aplicações conhecidas como maliciosas — menos eficaz; reativa</li>
+        <li><strong>Allow-listing vs. Deny-listing:</strong> prefer allow-list para sistemas críticos; deny-list para ambientes abertos</li>
+        <li><strong>AppLocker (Windows):</strong> controle de execução de apps por publisher, path ou hash</li>
+        <li><strong>Software Restriction Policies (SRP):</strong> legado Windows — substituído por AppLocker</li>
+        <li><strong>WDAC (Windows Defender AC):</strong> Application Control moderno — kernel-level enforcement</li>
+        <li><strong>Sandboxing de Aplicação:</strong> execução em ambiente restrito sem acesso ao sistema — browser, PDF reader, macros Office</li>
+        <li><strong>Patch Management Detalhado:</strong> Emergency Patch (crítico, 24–72h) · Regular Patch (mensal) · Long-term (trimestral/semestral)</li>
+        <li><strong>Compensating Control para Patch:</strong> quando não é possível aplicar patch — virtual patching, network isolation, enhanced monitoring</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ D8 · SOFTWARE DEVELOPMENT SECURITY (8%) ═══ -->
+<div class="domain-section" id="d8">
+<div class="container">
+  <div class="domain-header">
+    <div class="domain-number">08</div>
+    <div class="domain-title">
+      <h2>Software Development Security</h2>
+      <span class="pct-badge">8% DO EXAME</span>
+      <p class="domain-desc">SDLC, DevSecOps, OWASP Top 10, segurança de APIs/microservices, banco de dados, aquisição de software e supply chain.</p>
+    </div>
+  </div>
+
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>SDLC — Segurança em Cada Fase</h3>
+      <div class="tscroll"><table>
+        <tr><th>Fase</th><th>Atividades de Segurança</th></tr>
+        <tr><td>Requirements</td><td>Requisitos de segurança e privacidade, classificação de dados, compliance, abuse cases</td></tr>
+        <tr><td>Design</td><td>Threat modeling (STRIDE/PASTA), arquitetura segura, Privacy by Design, trust boundary analysis</td></tr>
+        <tr><td>Development</td><td>Secure coding standards, SAST, SCA, peer code review, secrets management</td></tr>
+        <tr><td>Testing</td><td>DAST, pentest, fuzzing, interface testing, security regression testing</td></tr>
+        <tr><td>Deployment</td><td>Hardening, secrets management, pipeline security gates, SBOM geração</td></tr>
+        <tr><td>Maintenance</td><td>Patch management, vulnerability disclosure program, monitoring, incident response</td></tr>
+      </table></div>
+    </div>
+    <div class="card a2">
+      <h3>Modelos de SDLC</h3>
+      <div class="tscroll"><table>
+        <tr><th>Modelo</th><th>Características</th></tr>
+        <tr><td>Waterfall</td><td>Sequencial; cada fase completa antes da próxima; documentação pesada; difícil mudança</td></tr>
+        <tr><td>Spiral</td><td>Iterativo + risk-driven; prototipagem em espiral; avalia risco a cada ciclo</td></tr>
+        <tr><td>Agile (Scrum/Kanban)</td><td>Sprints 2–4 semanas; MVP incremental; backlog; retrospec; flexível</td></tr>
+        <tr><td>SAFe</td><td>Scaled Agile Framework — Agile em larga escala; PI Planning</td></tr>
+        <tr><td>DevOps</td><td>Dev + Ops integrados; CI/CD pipeline; automação; infraestrutura como código</td></tr>
+        <tr><td>DevSecOps</td><td>Dev + Sec + Ops; segurança integrada ao pipeline; "shift left"</td></tr>
+        <tr><td>RAD</td><td>Rapid Application Development; protótipos rápidos com usuário final</td></tr>
+        <tr><td>Cleanroom</td><td>Desenvolvimento formal com verificação matemática — sistemas de altíssima confiança</td></tr>
+      </table></div>
+    </div>
+    <div class="card a4">
+      <h3>DevSecOps — Shift Left</h3>
+      <ul class="dl">
+        <li><strong>Shift Left:</strong> introduzir segurança cedo — Requirements/Design, não apenas no teste final</li>
+        <li><strong>CI/CD Security Gates:</strong> SAST + SCA + secrets scan automatizados no pipeline</li>
+        <li><strong>Infrastructure as Code (IaC):</strong> Terraform, CloudFormation — scan de misconfigurações (Checkov, tfsec)</li>
+        <li><strong>Container Security:</strong> image scan (Trivy, Clair), non-root user, minimal base image, signed images</li>
+        <li><strong>Secrets Management:</strong> HashiCorp Vault, AWS Secrets Manager — nunca hardcoded em código ou env vars</li>
+        <li><strong>SBOM:</strong> Software Bill of Materials — inventário de componentes para rastreabilidade de vulns</li>
+        <li><strong>Supply Chain Security:</strong> SLSA framework (L1–L4), Sigstore para assinatura de artefatos</li>
+        <li><strong>GitOps:</strong> Git como fonte de verdade para infraestrutura — auditável e versionado</li>
+        <li><strong>Security Champions:</strong> desenvolvedor com responsabilidade de segurança na equipe</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2 mb24">
+    <div class="card">
+      <h3>OWASP Top 10 — 2021</h3>
+      <div class="tscroll"><table>
+        <tr><th>#</th><th>Categoria</th><th>Exemplo</th><th>Mitigação</th></tr>
+        <tr><td>A01</td><td>Broken Access Control</td><td>IDOR, missing auth, privilege escalation</td><td>RBAC/ABAC, deny by default, IDOR checks</td></tr>
+        <tr><td>A02</td><td>Cryptographic Failures</td><td>Dados em claro, MD5, weak cipher</td><td>TLS 1.3, AES-256, não usar MD5/SHA-1</td></tr>
+        <tr><td>A03</td><td>Injection</td><td>SQL, LDAP, OS, XML, SSTI injection</td><td>Prepared statements, parameterized queries, input validation</td></tr>
+        <tr><td>A04</td><td>Insecure Design</td><td>Sem threat modeling, sem abuse cases</td><td>Threat modeling (STRIDE), security requirements</td></tr>
+        <tr><td>A05</td><td>Security Misconfiguration</td><td>Default creds, open ports, verbose errors</td><td>Hardening, CIS Benchmarks, DAST, remover defaults</td></tr>
+        <tr><td>A06</td><td>Vulnerable &amp; Outdated Components</td><td>Log4Shell, npm packages vulneráveis</td><td>SCA, patch management, SBOM</td></tr>
+        <tr><td>A07</td><td>Identification &amp; Auth Failures</td><td>Brute force, weak session, no MFA</td><td>MFA, bcrypt, session management correto</td></tr>
+        <tr><td>A08</td><td>Software &amp; Data Integrity Failures</td><td>Deserialization insegura, CI/CD não verificado</td><td>Assinatura digital, verificar integridade de artefatos</td></tr>
+        <tr><td>A09</td><td>Security Logging &amp; Monitoring Failures</td><td>Sem log de falhas de auth, sem alertas</td><td>SIEM, log centralizado, alertas de anomalia</td></tr>
+        <tr><td>A10</td><td>SSRF</td><td>Fetch URL interna via app — IMDS, Redis</td><td>Validação de URL, blocklist de IPs internos, IMDSv2</td></tr>
+      </table></div>
+    </div>
+    <div class="card a3">
+      <h3>Vulnerabilidades Adicionais de Aplicação</h3>
+      <div class="tscroll"><table>
+        <tr><th>Vuln</th><th>Descrição</th><th>Mitigação</th></tr>
+        <tr><td>XSS Reflected</td><td>Script injetado via URL executado no browser da vítima</td><td>Output encoding; CSP header</td></tr>
+        <tr><td>XSS Stored</td><td>Script persistido no DB; afeta múltiplos usuários</td><td>Output encoding + input validation</td></tr>
+        <tr><td>XSS DOM-based</td><td>Manipulação do DOM via JavaScript client-side</td><td>Safe DOM APIs; evitar innerHTML</td></tr>
+        <tr><td>CSRF</td><td>Forja request autenticado da vítima em outro domínio</td><td>CSRF token; SameSite cookie; Referer check</td></tr>
+        <tr><td>Directory Traversal</td><td>../../../etc/passwd — acesso a arquivos fora do diretório</td><td>Validação de path; chroot; allowlist</td></tr>
+        <tr><td>Command Injection</td><td>; rm -rf / inserido em campo de entrada executado no OS</td><td>Nunca usar input em shell command; APIs seguras</td></tr>
+        <tr><td>Buffer Overflow</td><td>Escreve além do buffer alocado; sobrescreve endereço de retorno</td><td>ASLR, DEP/NX, stack canaries; linguagens seguras</td></tr>
+        <tr><td>XXE</td><td>XML External Entity — leitura de arquivos locais via XML parser</td><td>Desabilitar external entity processing</td></tr>
+        <tr><td>Race Condition (TOCTOU)</td><td>Time-of-Check vs Time-of-Use — janela de exploração</td><td>Atomic operations; mutex; transações</td></tr>
+        <tr><td>Insecure Deserialization</td><td>Objeto malicioso desserializado executa código</td><td>Validar tipo antes de desserializar; assinatura</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Segurança de Banco de Dados</h3>
+      <ul class="dl">
+        <li><strong>SQL Injection:</strong> input não sanitizado executado como SQL — preparar statements parametrizados</li>
+        <li><strong>Stored Procedure:</strong> reduz superfície SQL; não é solução completa; ainda pode ter SQLi</li>
+        <li><strong>TDE (Transparent Data Encryption):</strong> cifra datafiles em repouso — SQL Server, Oracle, PostgreSQL</li>
+        <li><strong>Column-Level Encryption:</strong> colunas sensíveis individualmente cifradas — granularidade máxima</li>
+        <li><strong>Row-Level Security:</strong> filtra linhas baseado no contexto do usuário — multitenancy</li>
+        <li><strong>DAM (Database Activity Monitoring):</strong> auditoria de queries em tempo real; detecta anomalias</li>
+        <li><strong>Data Masking:</strong> ofuscação para ambiente dev/teste — dados reais nunca em non-prod</li>
+        <li><strong>Tokenization:</strong> substituição de dado sensível por token sem valor intrínseco — PCI DSS</li>
+        <li><strong>Views:</strong> restringe acesso a subconjunto de dados sem expor tabela completa</li>
+        <li><strong>Aggregation Attack:</strong> combinar dados não-sensíveis resulta em dado sensível</li>
+        <li><strong>Inference Attack:</strong> deduzir dado sensível a partir de dados disponíveis (estatísticas, respostas)</li>
+        <li><strong>Polyinstantiation:</strong> diferentes versões de dado para diferentes níveis de classificação</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>API Security & Microservices</h3>
+      <ul class="dl">
+        <li><strong>OWASP API Top 10 (2023):</strong> Broken Object Level Auth, Broken Auth, Broken Object Property Auth, Unrestricted Resource Consumption, Broken Function Level Auth, Unrestricted Access to Sensitive Business Flows, SSRF, Security Misconfiguration, Improper Inventory, Unsafe API Consumption</li>
+        <li><strong>API Gateway:</strong> ponto central de controle — autenticação, rate limiting, logging, SSL termination</li>
+        <li><strong>mTLS (Mutual TLS):</strong> autenticação bidirecional com certificado — padrão em microservices</li>
+        <li><strong>JWT (JSON Web Token):</strong> claims assinados; validar alg, exp, iss, aud — nunca aceitar alg:none</li>
+        <li><strong>Rate Limiting:</strong> previne abuse, DDoS de API, credential stuffing</li>
+        <li><strong>Service Mesh:</strong> Istio, Linkerd — mTLS automático entre microservices; observabilidade</li>
+        <li><strong>Zero Trust em APIs:</strong> cada chamada autenticada e autorizada; não confiar em rede interna</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Aquisição & Segurança de Software</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Risco Principal</th><th>Controles</th></tr>
+        <tr><td>COTS (Commercial Off-the-Shelf)</td><td>Vulnerabilidades do vendor; sem acesso ao código</td><td>Patch management; vendor SLA; vuln disclosure</td></tr>
+        <tr><td>Open Source</td><td>Componentes vulneráveis; supply chain</td><td>SCA, SBOM, OSSF Scorecard, pin versions</td></tr>
+        <tr><td>Custom Development</td><td>Developer errors; miscoding</td><td>SDLC completo; pentest; code review</td></tr>
+        <tr><td>SaaS</td><td>Dependência total do vendor; dados em terceiro</td><td>SLA, SOC 2, CASB, DPA, exit strategy</td></tr>
+      </table></div>
+      <div class="divider"></div>
+      <ul class="dl">
+        <li><strong>Software Escrow:</strong> terceiro guarda source code — garante continuidade se vendor falir</li>
+        <li><strong>Code Signing:</strong> assinatura digital do executável — garante autenticidade e integridade</li>
+        <li><strong>Secure Coding Standards:</strong> OWASP, CERT/SEI, MISRA C, CWE Top 25</li>
+        <li><strong>Security by Design:</strong> segurança integrada desde concepção — não retrofitada</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slabel mb24">8.4 · Malware Analysis, OOP Security & AI/ML</div>
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Malware Analysis</h3>
+      <div class="tscroll"><table>
+        <tr><th>Tipo</th><th>Método</th><th>Risco / Requisito</th></tr>
+        <tr><td>Static Analysis</td><td>Examina código/binário sem executar — strings, imports, PE headers, disassembly</td><td>Seguro; requer knowledge de RE; IDA Pro, Ghidra, Radare2</td></tr>
+        <tr><td>Dynamic Analysis</td><td>Executa malware em ambiente controlado e observa comportamento — registry, network, files</td><td>Requer sandbox isolado; ANY.RUN, Cuckoo, Hybrid Analysis</td></tr>
+        <tr><td>Hybrid Analysis</td><td>Combina estática + dinâmica — maior cobertura</td><td>Ferramentas: Hybrid Analysis, VirusTotal</td></tr>
+        <tr><td>Reverse Engineering</td><td>Desmonta executável para recuperar lógica original — decompiling, deobfuscation</td><td>Altamente especializado; Ghidra (NSA), Binary Ninja, x64dbg</td></tr>
+        <tr><td>Memory Forensics</td><td>Analisa processo/artefatos em memória RAM — unpacking in-memory</td><td>Volatility Framework; detecta malware fileless</td></tr>
+      </table></div>
+      <div class="divider"></div>
+      <div class="slabel">Tipos de Malware — Referência Rápida</div>
+      <ul class="dl">
+        <li><strong>Virus:</strong> requer host file; se replica ao infectar executáveis</li>
+        <li><strong>Worm:</strong> se propaga sozinho via rede — sem host file</li>
+        <li><strong>Trojan:</strong> parece legítimo; payload oculto</li>
+        <li><strong>RAT:</strong> Remote Access Trojan — controle remoto furtivo</li>
+        <li><strong>Rootkit:</strong> esconde-se em kernel/boot; difícil detecção</li>
+        <li><strong>Ransomware:</strong> cifra dados e exige resgate</li>
+        <li><strong>Fileless:</strong> reside em memória — PowerShell, WMI; sem arquivo em disco</li>
+        <li><strong>Botnet / C2:</strong> rede de máquinas comprometidas controlada remotamente</li>
+        <li><strong>Logic Bomb:</strong> payload ativado por evento/data — insider threat</li>
+        <li><strong>Adware / Spyware:</strong> coleta dados ou exibe anúncios sem consentimento</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>OOP Security — Conceitos para o CISSP</h3>
+      <ul class="dl">
+        <li><strong>Object-Oriented Programming (OOP):</strong> paradigma de software baseado em objetos com atributos e métodos</li>
+        <li><strong>Encapsulation:</strong> oculta implementação interna; expõe apenas interface — princípio de data hiding; análogo a least privilege</li>
+        <li><strong>Data Hiding:</strong> atributos internos inacessíveis diretamente de fora — reduz superfície de ataque do objeto</li>
+        <li><strong>Inheritance:</strong> subclasse herda atributos/métodos da superclasse — risco: herda também vulnerabilidades</li>
+        <li><strong>Polymorphism:</strong> mesmo método com comportamento diferente — atenção a type confusion attacks</li>
+        <li><strong>Abstraction:</strong> expõe apenas o necessário — design por contrato; interfaces bem definidas</li>
+        <li><strong>Cohesion:</strong> módulo com responsabilidade única (alta coesão) — mais fácil de auditar e testar</li>
+        <li><strong>Coupling:</strong> dependência entre módulos — baixo acoplamento = maior modularidade e isolamento de falhas</li>
+        <li><strong>Message Passing:</strong> objetos comunicam via mensagens — controlar interfaces é controlar o fluxo</li>
+        <li><strong>Polyinstantiation (OOP):</strong> múltiplas instâncias de objeto com diferentes visibilidades por classificação</li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>AI / ML — Riscos de Segurança</h3>
+      <ul class="dl">
+        <li><strong>Expert Systems:</strong> sistemas baseados em regras (knowledge base + inference engine) — CISSP CBK legado; decisões de segurança automatizadas</li>
+        <li><strong>Machine Learning em Segurança:</strong> detecção de anomalia (UEBA), análise de malware, classificação de phishing</li>
+        <li><strong>Adversarial ML:</strong> atacante manipula dados de treinamento ou input para enganar o modelo</li>
+        <li><strong>Poisoning Attack:</strong> corrompe dados de treinamento para degradar ou manipular o modelo</li>
+        <li><strong>Evasion Attack:</strong> input cuidadosamente crafted que engana o modelo em produção (adversarial examples)</li>
+        <li><strong>Model Inversion:</strong> extrai dados de treinamento a partir do modelo — risco de privacidade</li>
+        <li><strong>Membership Inference:</strong> determina se um dado específico estava no dataset de treinamento</li>
+        <li><strong>Prompt Injection (LLM):</strong> manipula instruções de AI via input do usuário — novo vetor de ataque</li>
+        <li><strong>AI Supply Chain:</strong> modelos pré-treinados com backdoors inseridos durante treinamento</li>
+        <li><strong>Explainability (XAI):</strong> modelos de caixa-preta dificultam auditoria de decisões de segurança — risco de accountability</li>
+        <li><strong>Bias de ML:</strong> modelos treinados com dados enviesados — decisões discriminatórias; risco regulatório (GDPR Art. 22)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ QUICK REFERENCE FINAL ═══ -->
+<div class="domain-section" id="qr" style="border-color:var(--accent);">
+<div class="container" style="padding-top:48px;">
+  <div class="slabel mb24">⬡ QUICK REFERENCE — Fórmulas, Portas, Mnemonics & Conceitos-Chave</div>
+  <div class="grid-4 mb24">
+    <div class="card">
+      <h3>Fórmulas Quantitativas</h3>
+      <ul class="dl">
+        <li><code>ALE = SLE × ARO</code></li>
+        <li><code>SLE = AV × EF</code></li>
+        <li><code>Residual Risk = Total Risk − Controls</code></li>
+        <li><code>Control Value = ALE₁ − ALE₂ − ACC</code></li>
+        <li><code>Availability = MTBF / (MTBF + MTTR)</code></li>
+        <li><code>MTBF = Uptime / # Failures</code></li>
+        <li><code>MTTR = Repair Time / # Failures</code></li>
+        <li><code>RTO + WRT ≤ MTD</code> — regra de ouro BCP</li>
+      </ul>
+    </div>
+    <div class="card a2">
+      <h3>Mnemonics Essenciais</h3>
+      <ul class="dl">
+        <li><strong>CIA</strong> — Confidentiality, Integrity, Availability</li>
+        <li><strong>DAD</strong> — Disclosure, Alteration, Destruction</li>
+        <li><strong>STRIDE</strong> — Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation</li>
+        <li><strong>PICERL</strong> — Prep, Identify, Contain, Eradicate, Recover, Lessons</li>
+        <li><strong>AAA</strong> — Authentication, Authorization, Accounting</li>
+        <li><strong>MATA</strong> — Mitigate, Assign, Terminate, Accept (respostas ao risco)</li>
+        <li><strong>BLP:</strong> "No Read Up, No Write Down" (Confidencialidade)</li>
+        <li><strong>Biba:</strong> "No Read Down, No Write Up" (Integridade)</li>
+      </ul>
+    </div>
+    <div class="card a3">
+      <h3>Prioridades de Decisão no Exame</h3>
+      <ul class="dl">
+        <li><strong>1º — Proteger vidas humanas</strong> (safety acima de tudo)</li>
+        <li><strong>2º — Seguir políticas e procedimentos</strong></li>
+        <li><strong>3º — Proteger ativos da organização</strong></li>
+        <li><strong>4º — Minimizar impacto ao negócio</strong></li>
+        <li>Incidente: Contain primeiro, depois Eradicate</li>
+        <li>Evidência: preserve antes de remediar</li>
+        <li>Conflito ético: cânone menor número prevalece</li>
+        <li><em>Sempre pense como CISO, não como técnico</em></li>
+      </ul>
+    </div>
+    <div class="card a4">
+      <h3>Portas Essenciais</h3>
+      <div class="tscroll"><table>
+        <tr><td>FTP data/ctrl</td><td>20/21</td></tr>
+        <tr><td>SSH / SFTP</td><td>22</td></tr>
+        <tr><td>Telnet</td><td>23 <span class="tag r">inseguro</span></td></tr>
+        <tr><td>SMTP / SMTPS</td><td>25 / 465 / 587</td></tr>
+        <tr><td>DNS</td><td>53 TCP/UDP</td></tr>
+        <tr><td>HTTP / HTTPS</td><td>80 / 443</td></tr>
+        <tr><td>Kerberos</td><td>88</td></tr>
+        <tr><td>POP3 / POP3S</td><td>110 / 995</td></tr>
+        <tr><td>IMAP / IMAPS</td><td>143 / 993</td></tr>
+        <tr><td>LDAP / LDAPS</td><td>389 / 636</td></tr>
+        <tr><td>HTTPS alt</td><td>8443</td></tr>
+        <tr><td>RADIUS</td><td>1812/1813</td></tr>
+        <tr><td>TACACS+</td><td>49</td></tr>
+        <tr><td>SNMP</td><td>161/162</td></tr>
+        <tr><td>RDP</td><td>3389</td></tr>
+        <tr><td>DoT</td><td>853</td></tr>
+        <tr><td>IPSec AH/ESP</td><td>51 / 50</td></tr>
+        <tr><td>FTPS</td><td>990</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="grid-3 mb24">
+    <div class="card">
+      <h3>Regulamentações — Resumo Rápido</h3>
+      <div class="tscroll"><table>
+        <tr><th>Regulação</th><th>Notificação Breach</th><th>Autoridade</th></tr>
+        <tr><td>GDPR</td><td>72 horas à DPA</td><td>DPA nacional (UE)</td></tr>
+        <tr><td>LGPD</td><td>Prazo razoável</td><td>ANPD (Brasil)</td></tr>
+        <tr><td>HIPAA</td><td>60 dias para indivíduos; anual HHS</td><td>HHS OCR (EUA)</td></tr>
+        <tr><td>PCI DSS</td><td>Imediato ao adquirente</td><td>Card Brands</td></tr>
+        <tr><td>SOX</td><td>Varia por estado</td><td>SEC (EUA)</td></tr>
+      </table></div>
+    </div>
+    <div class="card a2">
+      <h3>Algoritmos — Rápido Reference</h3>
+      <div class="tscroll"><table>
+        <tr><th>Algo</th><th>Tipo</th><th>Status</th></tr>
+        <tr><td>AES-256/GCM</td><td>Simétrico</td><td><span class="tag g">✓</span></td></tr>
+        <tr><td>RSA-2048+</td><td>Assimétrico</td><td><span class="tag g">✓</span></td></tr>
+        <tr><td>ECDSA P-256</td><td>Assinatura</td><td><span class="tag g">✓</span></td></tr>
+        <tr><td>SHA-256+</td><td>Hash</td><td><span class="tag g">✓</span></td></tr>
+        <tr><td>Argon2id</td><td>Password</td><td><span class="tag g">✓</span></td></tr>
+        <tr><td>TLS 1.3</td><td>Protocolo</td><td><span class="tag g">✓</span></td></tr>
+        <tr><td>DES, RC4, MD5</td><td>Legado</td><td><span class="tag r">✗</span></td></tr>
+        <tr><td>SHA-1, SSL3.0</td><td>Legado</td><td><span class="tag r">✗</span></td></tr>
+        <tr><td>3DES</td><td>Simétrico</td><td>Depreciado</td></tr>
+        <tr><td>ML-KEM (Kyber)</td><td>PQC KEM</td><td><span class="tag p">PQC</span></td></tr>
+        <tr><td>ML-DSA (Dilithium)</td><td>PQC Sig</td><td><span class="tag p">PQC</span></td></tr>
+      </table></div>
+    </div>
+    <div class="card a4">
+      <h3>Ordem de Volatilidade — Forense</h3>
+      <ul class="dl">
+        <li><strong>1. CPU registers &amp; cache</strong> — mais volátil</li>
+        <li><strong>2. RAM (memória principal)</strong></li>
+        <li><strong>3. Swap / paging file</strong></li>
+        <li><strong>4. Estado de rede</strong> (conexões, ARP cache, routing)</li>
+        <li><strong>5. Processos em execução</strong></li>
+        <li><strong>6. Disco (HDD/SSD)</strong></li>
+        <li><strong>7. Optical media</strong> (CD/DVD)</li>
+        <li><strong>8. Remote logs</strong></li>
+        <li><strong>9. Backup tapes</strong> — menos volátil</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hl mb24" style="text-align:center;">
+    <strong>⬡ MENTALIDADE CISSP FINAL:</strong> O CISSP não testa o que você <em>faria</em> como técnico — testa o que você <em>priorizaria</em> como líder de segurança. Quando duas respostas estiverem corretas tecnicamente, escolha a que <strong>protege a vida primeiro, segue a política, preserva evidências e minimiza impacto ao negócio</strong>. Em questões de risco: prefira sempre <em>identificar e avaliar antes de implementar</em>.
+  </div>
+</div>
+</div>
+
+<footer>
+  <div class="brand">Mariana BS — Be Safe</div>
+  <p>CISSP Cheat Sheet · Mariana B S · 2025–2026 · CBK ISC² 2024 — 100% Coverage</p>
+  <p style="margin-top:8px;font-size:10px;">Este material é para fins educacionais. ® ISC² e CISSP são marcas registradas do International Information System Security Certification Consortium.</p>
+  <div style="margin-top:12px;">
+    <span class="tag">ISC² CISSP CBK 2024</span>
+    <span class="tag g">8 DOMAINS</span>
+    <span class="tag p">CAT ADAPTIVE</span>
+    <span class="tag">700/1000</span>
+    <span class="tag">US$749</span>
+    <span class="tag g">100% CBK</span>
+  </div>
+</footer>
+
+</body>
+</html>
